@@ -13,8 +13,9 @@ body {
   background-attachment: fixed;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   overflow: auto;
+  padding-top: 110px;
 }
 
 .rain {
@@ -180,3 +181,54 @@ button:hover {
   transition: all 0.5s ease;
 }
 
+.navbar {
+  width: 90%;
+  max-width: 900px;
+
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.logo {
+  font-weight: 700;
+  color: #fff7d6;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+.nav-links {
+  display: flex;
+  gap: 8px;
+}
+
+.nav-btn {
+  padding: 10px 16px;
+  margin: 0;
+  background: rgba(255, 255, 255, 0.35);
+  font-size: 0.9rem;
+}
+
+.nav-btn:hover {
+  background: rgba(255, 255, 255, 0.65);
+}
+
+.page {
+  display: none;
+}
+
+.page.active-page {
+  display: block;
+}

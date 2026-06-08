@@ -17,6 +17,14 @@ const hero = document.querySelector(".hero");
 const audioPlayer = document.getElementById("audio-player");
 const soundButton = document.getElementById("sound-btn");
 
+const moodLink = document.getElementById("mood-link");
+const focusLink = document.getElementById("focus-link");
+const aboutLink = document.getElementById("about-link");
+
+const moodPage = document.getElementById("mood-page");
+const focusPage = document.getElementById("focus-page");
+const aboutPage = document.getElementById("about-page");
+
 let soundOn = true;
 
 scene.style.display = "none";
@@ -52,6 +60,35 @@ function showMood(quoteText, imagePath, backgroundColor, soundPath) {
   if (soundOn) {
     audioPlayer.play();
   }
+}
+
+function resetMoodView() {
+  scene.style.display = "none";
+  backButton.style.display = "none";
+  soundButton.style.display = "none";
+  moodButtons.style.display = "block";
+
+  titleSmall.style.display = "block";
+  mainTitle.style.display = "block";
+  introText.style.display = "block";
+
+  hero.classList.remove("active");
+
+  quote.textContent = "Welcome to your cozy escape 🌿";
+
+  audioPlayer.pause();
+  audioPlayer.currentTime = 0;
+
+  document.body.style.background =
+    "linear-gradient(135deg, #3B7597, #6FD1D7)";
+}
+
+function showPage(pageToShow) {
+  moodPage.classList.remove("active-page");
+  focusPage.classList.remove("active-page");
+  aboutPage.classList.remove("active-page");
+
+  pageToShow.classList.add("active-page");
 }
 
 peacefulButton.addEventListener("click", function () {
@@ -100,24 +137,7 @@ hungryButton.addEventListener("click", function () {
 });
 
 backButton.addEventListener("click", function () {
-  scene.style.display = "none";
-  backButton.style.display = "none";
-  soundButton.style.display = "none";
-  moodButtons.style.display = "block";
-
-  titleSmall.style.display = "block";
-  mainTitle.style.display = "block";
-  introText.style.display = "block";
-
-  hero.classList.remove("active");
-
-  quote.textContent = "Welcome to your cozy escape 🌿";
-
-  audioPlayer.pause();
-  audioPlayer.currentTime = 0;
-
-  document.body.style.background =
-    "linear-gradient(135deg, #3B7597, #6FD1D7)";
+  resetMoodView();
 });
 
 soundButton.addEventListener("click", function () {
@@ -130,4 +150,19 @@ soundButton.addEventListener("click", function () {
     audioPlayer.play();
     soundButton.textContent = "🔊 Sound On";
   }
+});
+
+moodLink.addEventListener("click", function () {
+  resetMoodView();
+  showPage(moodPage);
+});
+
+focusLink.addEventListener("click", function () {
+  resetMoodView();
+  showPage(focusPage);
+});
+
+aboutLink.addEventListener("click", function () {
+  resetMoodView();
+  showPage(aboutPage);
 });

@@ -11,9 +11,18 @@
   <div class="rain"></div>
   <div class="overlay"></div>
 
+  <nav class="navbar">
+    <div class="logo">Cozy Escape</div>
+    <div class="nav-links">
+      <button class="nav-btn" id="mood-link">Mood Escape</button>
+      <button class="nav-btn" id="focus-link">Focus Garden</button>
+      <button class="nav-btn" id="about-link">About</button>
+    </div>
+  </nav>
+
   <main class="app">
 
-    <section class="hero">
+    <section class="hero page active-page" id="mood-page">
       <p class="eyebrow" id="title-small">A soft little escape</p>
       
       <p id="quote">Welcome to your cozy escape 🌿</p>
@@ -37,7 +46,23 @@
       <button id="back-btn" class="back-btn">← Back</button>
       <button id="sound-btn" class="sound-btn">🔊 Sound On</button>
     </section>
-    
+
+    <section class="hero page" id="focus-page">
+      <p class="eyebrow">Focus Garden</p>
+      <h1>Build your focus world</h1>
+      <p class="intro">Choose a cozy atmosphere, start a focus session, and grow your progress.</p>
+      <p id="focus-placeholder">🌱 Focus Timer coming soon...</p>
+    </section>
+
+    <section class="hero page" id="about-page">
+      <p class="eyebrow">About Cozy Escape</p>
+      <h1>Relax. Focus. Grow.</h1>
+      <p class="intro">
+        Cozy Escape is a mood-based web app created to help users slow down,
+        enjoy calming moments, and later track small study or work achievements.
+      </p>
+    </section>
+
   </main>
 
   <audio id="audio-player" loop></audio>
