@@ -532,3 +532,67 @@ button:hover {
   gap: 12px;
   flex-wrap: wrap;
 }
+
+.time-options {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.time-btn {
+  padding: 13px 22px;
+  border-radius: 999px;
+
+  background: rgba(244, 216, 168, 0.85);
+  border: 2px solid rgba(255, 247, 214, 0.75);
+
+  color: #26312c;
+  font-weight: 700;
+
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.10);
+}
+
+.time-btn:hover {
+  background: rgba(255, 232, 186, 0.98);
+}
+
+.time-btn.selected {
+  background: rgba(255, 247, 214, 1);
+  border: 2px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 15px 35px rgba(47, 58, 50, 0.25);
+  transform: translateY(-3px);
+}
+
+.custom-time {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.custom-time label {
+  font-weight: 700;
+  color: #26312c;
+}
+
+.custom-time input {
+  width: 150px;
+  padding: 12px 16px;
+
+  border: 2px solid rgba(255, 247, 214, 0.75);
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.45);
+  color: #26312c;
+
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.custom-time input:focus {
+  outline: none;
+  background: rgba(255, 247, 214, 0.95);
+}

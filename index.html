@@ -48,14 +48,13 @@
     </section>
 
     <section class="hero page" id="focus-page">
-      <p class="eyebrow">Focus Garden</p>
-      <h1 class="page-title">Build your focus world</h1>
-      
-      <p class="page-description">
+      <p class="eyebrow focus-intro">Focus Garden</p>
+      <h1 class="page-title focus-intro">Build your focus world</h1>
+      <p class="page-description focus-intro">
         Choose your cozy progress style and atmosphere before starting a focus session.
       </p>
       
-      <div class="focus-section">
+      <div class="focus-section focus-setup">
         <h2>Choose your progress style</h2>
         
         <div class="choice-grid progress-grid">
@@ -73,7 +72,7 @@
         </div>
       </div>
       
-      <div class="focus-section">
+      <div class="focus-section focus-setup">
         <h2>Choose your atmosphere</h2>
         <div class="atmosphere-row">
           <button class="atmosphere-card" id="fireplace-choice">
@@ -93,8 +92,24 @@
           </button>
         </div>
       </div>
+
+      <div class="focus-section focus-setup">
+  <h2>Choose your focus time</h2>
+
+  <div class="time-options">
+    <button class="time-btn" data-minutes="15">15 min</button>
+    <button class="time-btn selected" data-minutes="25">25 min</button>
+    <button class="time-btn" data-minutes="45">45 min</button>
+    <button class="time-btn" data-minutes="60">60 min</button>
+  </div>
+
+  <div class="custom-time">
+    <label for="custom-minutes">Custom minutes</label>
+    <input type="number" id="custom-minutes" min="1" max="180" placeholder="Example: 30" />
+  </div>
+</div>
       
-      <div class="focus-summary">
+      <div class="focus-summary focus-setup">
         <p id="choice-summary">Choose a progress style and atmosphere to begin.</p>
         <div class="focus-actions">
           <button id="start-focus-btn" class="start-focus-btn">Start Focus Session</button>
@@ -110,6 +125,7 @@
           <div class="timer-actions">
             <button id="pause-timer-btn" class="clear-focus-btn">Pause</button>
             <button id="reset-timer-btn" class="clear-focus-btn">Reset</button>
+            <button id="end-session-btn" class="clear-focus-btn">End Session</button>
           </div>
         </div>
       </div>

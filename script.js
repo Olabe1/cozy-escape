@@ -45,9 +45,17 @@ const timerDisplay = document.getElementById("timer-display");
 const pauseTimerButton = document.getElementById("pause-timer-btn");
 const resetTimerButton = document.getElementById("reset-timer-btn");
 
+const focusSetupSections = document.querySelectorAll(".focus-setup");
+const focusIntroTexts = document.querySelectorAll(".focus-intro");
+const endSessionButton = document.getElementById("end-session-btn");
+
+const timeButtons = document.querySelectorAll(".time-btn");
+const customMinutesInput = document.getElementById("custom-minutes");
+
 let soundOn = true;
 let selectedProgress = "";
 let selectedAtmosphere = "";
+let selectedMinutes = 25;
 let focusDuration = 25 * 60;
 let timeLeft = focusDuration;
 let timerInterval = null;
@@ -280,10 +288,18 @@ function startFocusSession() {
     return;
   }
 
+  focusSetupSections.forEach(function (section) {
+    section.style.display = "none";
+  });
+
+  focusIntroTexts.forEach(function (text) {
+    text.style.display = "none";
+  });
+
   sessionPanel.style.display = "block";
 
   sessionDetails.textContent =
-    `Mode: ${selectedProgress} | Atmosphere: ${selectedAtmosphere}`;
+  `Mode: ${selectedProgress} | Atmosphere: ${selectedAtmosphere} | Time: ${selectedMinutes} min`;
 
   resetTimer();
   startTimer();
@@ -356,4 +372,73 @@ pauseTimerButton.addEventListener("click", function () {
 
 resetTimerButton.addEventListener("click", function () {
   resetTimer();
+});
+
+function endFocusSession() {
+  clearInterval(timerInterval);
+  timerInterval = null;
+  timerRunning = false;
+
+  sessionPanel.style.display = "none";
+
+  focusSetupSections.forEach(function (section) {
+    section.style.display = "block";
+  });
+
+  focusIntroTexts.forEach(function (text) {
+    text.style.display = "block";
+  });
+
+  resetTimer();
+
+  console.log("Focus session ended");
+}
+
+endSessionButton.addEventListener("click", function () {
+  endFocusSession();
+});
+
+function selectFocusTime(minutes, selectedButton) {
+  selectedMinutes = minutes;
+  focusDuration = selectedMinutes * 60;
+  timeLeft = focusDuration;
+
+  timeButtons.forEach(function (button) {
+    button.classList.remove("selected");
+  });
+
+  if (selectedButton) {
+    selectedButton.classList.add("selected");
+  }
+
+  customMinutesInput.value = "";
+
+  updateTimerDisplay();
+
+  console.log("Selected time:", selectedMinutes, "minutes");
+}
+
+timeButtons.forEach(function (button) {
+  button.addEventListener("click", function () {
+    const minutes = Number(button.dataset.minutes);
+    selectFocusTime(minutes, button);
+  });
+});
+
+customMinutesInput.addEventListener("input", function () {
+  const customMinutes = Number(customMinutesInput.value);
+
+  if (customMinutes > 0 && customMinutes <= 180) {
+    selectedMinutes = customMinutes;
+    focusDuration = selectedMinutes * 60;
+    timeLeft = focusDuration;
+
+    timeButtons.forEach(function (button) {
+      button.classList.remove("selected");
+    });
+
+    updateTimerDisplay();
+
+    console.log("Custom time:", selectedMinutes, "minutes");
+  }
 });
