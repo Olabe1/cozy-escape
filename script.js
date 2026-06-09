@@ -34,6 +34,8 @@ const cafeChoice = document.getElementById("cafe-choice");
 const nightChoice = document.getElementById("night-choice");
 
 let soundOn = true;
+let selectedProgress = "";
+let selectedAtmosphere = "";
 
 scene.style.display = "none";
 backButton.style.display = "none";
@@ -175,42 +177,48 @@ aboutLink.addEventListener("click", function () {
   showPage(aboutPage);
 });
 
-function selectProgressStyle(selectedCard) {
+function selectProgressStyle(selectedCard, progressType) {
   plantChoice.classList.remove("selected");
   roomChoice.classList.remove("selected");
 
   selectedCard.classList.add("selected");
+  selectedProgress = progressType;
+
+  console.log("Selected progress:", selectedProgress);
 }
 
-function selectAtmosphere(selectedCard) {
+function selectAtmosphere(selectedCard, atmosphereType) {
   fireplaceChoice.classList.remove("selected");
   rainChoice.classList.remove("selected");
   cafeChoice.classList.remove("selected");
   nightChoice.classList.remove("selected");
 
   selectedCard.classList.add("selected");
+  selectedAtmosphere = atmosphereType;
+
+  console.log("Selected atmosphere:", selectedAtmosphere);
 }
 
 plantChoice.addEventListener("click", function () {
-  selectProgressStyle(plantChoice);
+  selectProgressStyle(plantChoice, "plant");
 });
 
 roomChoice.addEventListener("click", function () {
-  selectProgressStyle(roomChoice);
+  selectProgressStyle(roomChoice, "room");
 });
 
 fireplaceChoice.addEventListener("click", function () {
-  selectAtmosphere(fireplaceChoice);
+  selectAtmosphere(fireplaceChoice, "fireplace");
 });
 
 rainChoice.addEventListener("click", function () {
-  selectAtmosphere(rainChoice);
+  selectAtmosphere(rainChoice, "rain");
 });
 
 cafeChoice.addEventListener("click", function () {
-  selectAtmosphere(cafeChoice);
+  selectAtmosphere(cafeChoice, "cafe");
 });
 
 nightChoice.addEventListener("click", function () {
-  selectAtmosphere(nightChoice);
+  selectAtmosphere(nightChoice, "night");
 });
