@@ -16,6 +16,7 @@
     <div class="nav-links">
       <button class="nav-btn" id="mood-link">Mood Escape</button>
       <button class="nav-btn" id="focus-link">Focus Garden</button>
+      <button class="nav-btn" id="wins-link">Small Wins</button>
       <button class="nav-btn" id="about-link">About</button>
     </div>
   </nav>
@@ -129,7 +130,37 @@
           </div>
         </div>
       </div>
-    
+
+      <div class="completion-panel" id="completion-panel">
+        <h2>Session complete ✨</h2>
+        <p>
+          Great job. Take a small breath and write what you completed or learned.
+        </p>
+        
+        <textarea
+        id="achievement-input"
+        placeholder="Example: I read a few pages, cleaned my room, practiced drawing, or finished one small task."
+        ></textarea>
+
+        <button id="save-achievement-btn" class="start-focus-btn">
+          Save Small Win
+        </button>
+      </div>
+    </section>
+
+    <section class="hero page wins-page" id="wins-page">
+      <p class="eyebrow">Small Wins</p>
+      <h1 class="page-title">Your cozy progress</h1>
+      
+      <p class="page-description">
+        Every small step counts. Here you can see the little things you finished,
+        learned, or gave time to.
+      </p>
+      
+      <div class="wins-board">
+        <h2>Saved small wins ✨</h2>
+        <ul id="wins-list"></ul>
+      </div>
     </section>
 
     <section class="hero page about-card" id="about-page">

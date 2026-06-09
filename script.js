@@ -52,6 +52,14 @@ const endSessionButton = document.getElementById("end-session-btn");
 const timeButtons = document.querySelectorAll(".time-btn");
 const customMinutesInput = document.getElementById("custom-minutes");
 
+const completionPanel = document.getElementById("completion-panel");
+const achievementInput = document.getElementById("achievement-input");
+const saveAchievementButton = document.getElementById("save-achievement-btn");
+
+const winsList = document.getElementById("wins-list");
+const winsLink = document.getElementById("wins-link");
+const winsPage = document.getElementById("wins-page");
+
 let soundOn = true;
 let selectedProgress = "";
 let selectedAtmosphere = "";
@@ -60,6 +68,7 @@ let focusDuration = 25 * 60;
 let timeLeft = focusDuration;
 let timerInterval = null;
 let timerRunning = false;
+let savedWins = JSON.parse(localStorage.getItem("cozyEscapeWins")) || [];
 
 scene.style.display = "none";
 backButton.style.display = "none";
@@ -120,14 +129,15 @@ function resetMoodView() {
 function showPage(pageToShow) {
   moodPage.classList.remove("active-page");
   focusPage.classList.remove("active-page");
+  winsPage.classList.remove("active-page");
   aboutPage.classList.remove("active-page");
-
+  
   pageToShow.classList.add("active-page");
 }
 
 peacefulButton.addEventListener("click", function () {
   showMood(
-    "The trees are whispering softly in the rain 🍃",
+    "The trees are whispering softly in the rain",
     "images/peaceful.jpeg",
     "linear-gradient(135deg, #7FA36B, #C9DDB3)",
     "sounds/peaceful.mp3"
@@ -136,7 +146,7 @@ peacefulButton.addEventListener("click", function () {
 
 tiredButton.addEventListener("click", function () {
   showMood(
-    "The rain is falling softly. Rest for a while ☕",
+    "The rain is falling softly. Rest for a while",
     "images/tired.jpeg",
     "linear-gradient(135deg, #FFD6A6, #FFF0BE)",
     "sounds/tired.mp3"
@@ -145,7 +155,7 @@ tiredButton.addEventListener("click", function () {
 
 stressedButton.addEventListener("click", function () {
   showMood(
-    "Let the rain carry the heavy thoughts away 🌧️",
+    "Let the rain carry the heavy thoughts away",
     "images/stressed.jpeg",
     "linear-gradient(135deg, #296374, #629FAD)",
     "sounds/stressed.mp3"
@@ -154,7 +164,7 @@ stressedButton.addEventListener("click", function () {
 
 dreamyButton.addEventListener("click", function () {
   showMood(
-    "You are drifting through a dreamy little world 🌙",
+    "You are drifting through a dreamy little world",
     "images/dreamy.jpeg",
     "linear-gradient(135deg, #E6DEF7, #FDB5CE)",
     "sounds/dreamy.mp3"
@@ -163,7 +173,7 @@ dreamyButton.addEventListener("click", function () {
 
 hungryButton.addEventListener("click", function () {
   showMood(
-    "The smell of fresh bread drifts through the village bakery 🍞",
+    "The smell of fresh bread drifts through the village bakery",
     "images/hungry.jpeg",
     "linear-gradient(135deg, #F6E0B8, #FFF7EA)",
     "sounds/hungry.mp3"
@@ -339,7 +349,10 @@ function startTimer() {
       timerRunning = false;
 
       timerDisplay.textContent = "Done!";
-      sessionDetails.textContent = "Great job! You completed your focus session 🌿";
+      sessionDetails.textContent = "Great job! You completed your focus session :)";
+      
+      sessionPanel.style.display = "none";
+      completionPanel.style.display = "block";
     }
   }, 1000);
 }
@@ -442,3 +455,79 @@ customMinutesInput.addEventListener("input", function () {
     console.log("Custom time:", selectedMinutes, "minutes");
   }
 });
+
+saveAchievementButton.addEventListener("click", function () {
+  const achievementText = achievementInput.value.trim();
+
+  if (achievementText === "") {
+    alert("Please write one small win first.");
+    return;
+  }
+
+  savedWins.unshift(achievementText);
+
+  localStorage.setItem("cozyEscapeWins", JSON.stringify(savedWins));
+
+  renderSavedWins();
+
+  achievementInput.value = "";
+
+  completionPanel.style.display = "none";
+
+  focusSetupSections.forEach(function (section) {
+    section.style.display = "block";
+  });
+
+  focusIntroTexts.forEach(function (text) {
+    text.style.display = "block";
+  });
+
+  showPage(winsPage);
+});
+
+winsLink.addEventListener("click", function () {
+  resetMoodView();
+  renderSavedWins();
+  showPage(winsPage);
+});
+
+function renderSavedWins() {
+  winsList.innerHTML = "";
+
+  if (savedWins.length === 0) {
+    const emptyMessage = document.createElement("li");
+    emptyMessage.classList.add("win-card");
+    emptyMessage.innerHTML = `
+      <p>No small wins yet. Finish a focus session and save your first one ✨</p>
+    `;
+    winsList.appendChild(emptyMessage);
+    return;
+  }
+
+  savedWins.forEach(function (win, index) {
+    const listItem = document.createElement("li");
+    listItem.classList.add("win-card");
+
+    listItem.innerHTML = `
+      <p>❤ ${win}</p>
+      <button class="delete-win-btn" data-index="${index}">Delete</button>
+    `;
+
+    winsList.appendChild(listItem);
+  });
+
+  const deleteButtons = document.querySelectorAll(".delete-win-btn");
+
+  deleteButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      const index = Number(button.dataset.index);
+
+      savedWins.splice(index, 1);
+      localStorage.setItem("cozyEscapeWins", JSON.stringify(savedWins));
+
+      renderSavedWins();
+    });
+  });
+}
+
+renderSavedWins();
