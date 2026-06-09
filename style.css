@@ -11,11 +11,14 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
+
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
   overflow: auto;
-  padding-top: 110px;
+  padding-top: 30px;
 }
 
 .rain {
@@ -57,7 +60,7 @@ body {
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   border: 1px solid rgba(255,255,255,0.25);
-  padding: 60px 30px;
+  padding: 70px 40px;
   border-radius: 30px;
   box-shadow: 0 20px 50px rgba(47, 58, 50, 0.25);
 }
@@ -185,21 +188,23 @@ button:hover {
   width: 90%;
   max-width: 900px;
 
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
+  position: relative;
   z-index: 3;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   padding: 14px 20px;
+  margin-bottom: 25px;
+
   background: rgba(255, 255, 255, 0.18);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
+
   border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 999px;
+
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
 
@@ -231,4 +236,200 @@ button:hover {
 
 .page.active-page {
   display: block;
+}
+
+.page-title {
+  font-size: 3.2rem;
+  margin: 10px 0 24px;
+  color: #26312c;
+  line-height: 1.1;
+  font-weight: 700;
+}
+
+.page-description {
+  max-width: 680px;
+  margin: 0 auto 35px;
+  font-size: 1.35rem;
+  line-height: 1.8;
+  color: #1f2a27;
+}
+
+.coming-box {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 18px 28px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+#focus-placeholder {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #2f3a32;
+}
+
+.about-card {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 60px 45px;
+}
+
+.about-title {
+  font-size: 3.4rem;
+  margin-bottom: 24px;
+}
+
+.about-description {
+  max-width: 760px;
+  margin-bottom: 28px;
+  font-size: 1.28rem;
+  line-height: 1.8;
+}
+
+.about-badge {
+  max-width: 720px;
+  margin: 0 auto 38px;
+  padding: 16px 24px;
+
+  border-radius: 999px;
+
+  background: rgba(244, 216, 168, 0.85);
+  border: 2px solid rgba(255, 247, 214, 0.75);
+
+  color: #26312c;
+  font-size: 1rem;
+  font-weight: 700;
+
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.10);
+}
+
+.about-points {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-top: 20px;
+}
+
+.about-point {
+  padding: 28px 22px;
+  border-radius: 28px;
+
+  background: rgba(244, 216, 168, 0.82);
+  border: 2px solid rgba(255, 247, 214, 0.75);
+
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.12);
+
+  transition: 0.3s ease;
+}
+
+.about-point:hover {
+  background: rgba(255, 232, 186, 0.95);
+  transform: translateY(-5px);
+}
+
+.about-point span {
+  display: block;
+  font-size: 2.4rem;
+  margin-bottom: 14px;
+}
+
+.about-point h3 {
+  margin: 0 0 12px;
+  color: #26312c;
+  font-size: 1.15rem;
+}
+
+.about-point p {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: #26312c;
+}
+
+.focus-section {
+  margin-top: 34px;
+}
+
+.focus-section h2 {
+  font-size: 1.35rem;
+  margin-bottom: 18px;
+  color: #26312c;
+}
+
+.progress-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+  margin-bottom: 36px;
+}
+
+.choice-card {
+  padding: 24px 22px;
+  border-radius: 28px;
+  background: rgba(244, 216, 168, 0.82);
+  border: 2px solid rgba(255, 247, 214, 0.75);
+  color: #26312c;
+  text-align: center;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.10);
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.choice-card:hover {
+  background: rgba(255, 232, 186, 0.95);
+  transform: translateY(-4px);
+}
+
+.choice-card span {
+  display: block;
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.choice-card strong {
+  display: block;
+  font-size: 1.15rem;
+  margin-bottom: 10px;
+}
+
+.choice-card p {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.5;
+}
+
+.atmosphere-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 32px;
+}
+
+.atmosphere-card {
+  padding: 14px 22px;
+  border-radius: 999px;
+  background: rgba(244, 216, 168, 0.85);
+  border: 2px solid rgba(255, 247, 214, 0.75);
+  color: #26312c;
+  font-weight: 700;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.10);
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.atmosphere-card:hover {
+  background: rgba(255, 232, 186, 0.98);
+  transform: translateY(-3px);
+}
+
+.choice-card.selected,
+.atmosphere-card.selected {
+  background: rgba(255, 247, 214, 1);
+  border: 2px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 18px 40px rgba(47, 58, 50, 0.28);
+  transform: translateY(-4px);
 }

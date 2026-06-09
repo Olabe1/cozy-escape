@@ -25,6 +25,14 @@ const moodPage = document.getElementById("mood-page");
 const focusPage = document.getElementById("focus-page");
 const aboutPage = document.getElementById("about-page");
 
+const plantChoice = document.getElementById("plant-choice");
+const roomChoice = document.getElementById("room-choice");
+
+const fireplaceChoice = document.getElementById("fireplace-choice");
+const rainChoice = document.getElementById("rain-choice");
+const cafeChoice = document.getElementById("cafe-choice");
+const nightChoice = document.getElementById("night-choice");
+
 let soundOn = true;
 
 scene.style.display = "none";
@@ -165,4 +173,44 @@ focusLink.addEventListener("click", function () {
 aboutLink.addEventListener("click", function () {
   resetMoodView();
   showPage(aboutPage);
+});
+
+function selectProgressStyle(selectedCard) {
+  plantChoice.classList.remove("selected");
+  roomChoice.classList.remove("selected");
+
+  selectedCard.classList.add("selected");
+}
+
+function selectAtmosphere(selectedCard) {
+  fireplaceChoice.classList.remove("selected");
+  rainChoice.classList.remove("selected");
+  cafeChoice.classList.remove("selected");
+  nightChoice.classList.remove("selected");
+
+  selectedCard.classList.add("selected");
+}
+
+plantChoice.addEventListener("click", function () {
+  selectProgressStyle(plantChoice);
+});
+
+roomChoice.addEventListener("click", function () {
+  selectProgressStyle(roomChoice);
+});
+
+fireplaceChoice.addEventListener("click", function () {
+  selectAtmosphere(fireplaceChoice);
+});
+
+rainChoice.addEventListener("click", function () {
+  selectAtmosphere(rainChoice);
+});
+
+cafeChoice.addEventListener("click", function () {
+  selectAtmosphere(cafeChoice);
+});
+
+nightChoice.addEventListener("click", function () {
+  selectAtmosphere(nightChoice);
 });
