@@ -33,9 +33,25 @@ const rainChoice = document.getElementById("rain-choice");
 const cafeChoice = document.getElementById("cafe-choice");
 const nightChoice = document.getElementById("night-choice");
 
+const choiceSummary = document.getElementById("choice-summary");
+const startFocusButton = document.getElementById("start-focus-btn");
+
+const clearFocusButton = document.getElementById("clear-focus-btn");
+
+const sessionPanel = document.getElementById("session-panel");
+const sessionDetails = document.getElementById("session-details");
+
+const timerDisplay = document.getElementById("timer-display");
+const pauseTimerButton = document.getElementById("pause-timer-btn");
+const resetTimerButton = document.getElementById("reset-timer-btn");
+
 let soundOn = true;
 let selectedProgress = "";
 let selectedAtmosphere = "";
+let focusDuration = 25 * 60;
+let timeLeft = focusDuration;
+let timerInterval = null;
+let timerRunning = false;
 
 scene.style.display = "none";
 backButton.style.display = "none";
@@ -185,6 +201,7 @@ function selectProgressStyle(selectedCard, progressType) {
   selectedProgress = progressType;
 
   console.log("Selected progress:", selectedProgress);
+  updateChoiceSummary();
 }
 
 function selectAtmosphere(selectedCard, atmosphereType) {
@@ -197,6 +214,19 @@ function selectAtmosphere(selectedCard, atmosphereType) {
   selectedAtmosphere = atmosphereType;
 
   console.log("Selected atmosphere:", selectedAtmosphere);
+  updateChoiceSummary();
+}
+
+function updateChoiceSummary() {
+  if (selectedProgress === "" && selectedAtmosphere === "") {
+    choiceSummary.textContent = "Choose a progress style and atmosphere to begin.";
+  } else if (selectedProgress === "") {
+    choiceSummary.textContent = `Atmosphere selected: ${selectedAtmosphere}. Now choose a progress style.`;
+  } else if (selectedAtmosphere === "") {
+    choiceSummary.textContent = `Progress selected: ${selectedProgress}. Now choose an atmosphere.`;
+  } else {
+    choiceSummary.textContent = `Ready: ${selectedProgress} mode with ${selectedAtmosphere} atmosphere.`;
+  }
 }
 
 plantChoice.addEventListener("click", function () {
@@ -221,4 +251,109 @@ cafeChoice.addEventListener("click", function () {
 
 nightChoice.addEventListener("click", function () {
   selectAtmosphere(nightChoice, "night");
+});
+
+function clearFocusChoices() {
+  selectedProgress = "";
+  selectedAtmosphere = "";
+
+  plantChoice.classList.remove("selected");
+  roomChoice.classList.remove("selected");
+
+  fireplaceChoice.classList.remove("selected");
+  rainChoice.classList.remove("selected");
+  cafeChoice.classList.remove("selected");
+  nightChoice.classList.remove("selected");
+
+  updateChoiceSummary();
+
+  console.log("Focus choices cleared");
+}
+
+clearFocusButton.addEventListener("click", function () {
+  clearFocusChoices();
+});
+
+function startFocusSession() {
+  if (selectedProgress === "" || selectedAtmosphere === "") {
+    choiceSummary.textContent = "Please choose both a progress style and an atmosphere first.";
+    return;
+  }
+
+  sessionPanel.style.display = "block";
+
+  sessionDetails.textContent =
+    `Mode: ${selectedProgress} | Atmosphere: ${selectedAtmosphere}`;
+
+  resetTimer();
+  startTimer();
+
+  console.log("Focus session started");
+}
+
+startFocusButton.addEventListener("click", function () {
+  startFocusSession();
+});
+
+function updateTimerDisplay() {
+  const minutes = Math.floor(timeLeft / 60);
+  const seconds = timeLeft % 60;
+
+  const formattedMinutes = String(minutes).padStart(2, "0");
+  const formattedSeconds = String(seconds).padStart(2, "0");
+
+  timerDisplay.textContent = `${formattedMinutes}:${formattedSeconds}`;
+}
+
+function startTimer() {
+  if (timerRunning) {
+    return;
+  }
+
+  timerRunning = true;
+  pauseTimerButton.textContent = "Pause";
+
+  timerInterval = setInterval(function () {
+    timeLeft--;
+    updateTimerDisplay();
+
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      timerRunning = false;
+
+      timerDisplay.textContent = "Done!";
+      sessionDetails.textContent = "Great job! You completed your focus session 🌿";
+    }
+  }, 1000);
+}
+
+function pauseTimer() {
+  clearInterval(timerInterval);
+  timerInterval = null;
+  timerRunning = false;
+  pauseTimerButton.textContent = "Resume";
+}
+
+function resetTimer() {
+  clearInterval(timerInterval);
+  timerInterval = null;
+  timerRunning = false;
+
+  timeLeft = focusDuration;
+  updateTimerDisplay();
+
+  pauseTimerButton.textContent = "Pause";
+}
+
+pauseTimerButton.addEventListener("click", function () {
+  if (timerRunning) {
+    pauseTimer();
+  } else {
+    startTimer();
+  }
+});
+
+resetTimerButton.addEventListener("click", function () {
+  resetTimer();
 });

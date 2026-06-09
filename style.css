@@ -433,3 +433,102 @@ button:hover {
   box-shadow: 0 18px 40px rgba(47, 58, 50, 0.28);
   transform: translateY(-4px);
 }
+
+.focus-summary {
+  margin: 35px auto 0;
+  max-width: 620px;
+  padding: 20px 26px;
+  border-radius: 26px;
+
+  background: rgba(255, 255, 255, 0.24);
+  border: 2px solid rgba(255, 255, 255, 0.22);
+
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.10);
+}
+
+#choice-summary {
+  margin: 0 0 16px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #26312c;
+}
+
+.start-focus-btn {
+  background: rgba(244, 216, 168, 0.95);
+  border: 2px solid rgba(255, 247, 214, 0.85);
+  font-weight: 700;
+}
+
+.start-focus-btn:hover {
+  background: rgba(255, 232, 186, 1);
+}
+
+.focus-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.clear-focus-btn {
+  background: rgba(255, 255, 255, 0.45);
+  border: 2px solid rgba(255, 255, 255, 0.45);
+  font-weight: 700;
+}
+
+.clear-focus-btn:hover {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.session-panel {
+  display: none;
+
+  margin: 30px auto 0;
+  max-width: 620px;
+  padding: 28px 26px;
+
+  border-radius: 28px;
+
+  background: rgba(244, 216, 168, 0.82);
+  border: 2px solid rgba(255, 247, 214, 0.75);
+
+  box-shadow: 0 15px 35px rgba(47, 58, 50, 0.18);
+}
+
+.session-panel h2 {
+  margin: 0 0 14px;
+  font-size: 1.5rem;
+  color: #26312c;
+}
+
+#session-details {
+  margin: 0 0 12px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #26312c;
+}
+
+.timer-placeholder {
+  margin: 0;
+  font-size: 1rem;
+  color: #2f3a32;
+}
+
+.timer-box {
+  margin-top: 20px;
+}
+
+#timer-display {
+  margin: 0 0 18px;
+  font-size: 3rem;
+  font-weight: 800;
+  color: #26312c;
+  letter-spacing: 2px;
+}
+
+.timer-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
