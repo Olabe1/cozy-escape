@@ -15,14 +15,17 @@ const introText = document.getElementById("intro-text");
 const hero = document.querySelector(".hero");
 
 const audioPlayer = document.getElementById("audio-player");
+const focusAudioPlayer = document.getElementById("focus-audio-player");
 const soundButton = document.getElementById("sound-btn");
 
 const moodLink = document.getElementById("mood-link");
 const focusLink = document.getElementById("focus-link");
+const winsLink = document.getElementById("wins-link");
 const aboutLink = document.getElementById("about-link");
 
 const moodPage = document.getElementById("mood-page");
 const focusPage = document.getElementById("focus-page");
+const winsPage = document.getElementById("wins-page");
 const aboutPage = document.getElementById("about-page");
 
 const plantChoice = document.getElementById("plant-choice");
@@ -35,21 +38,20 @@ const nightChoice = document.getElementById("night-choice");
 
 const choiceSummary = document.getElementById("choice-summary");
 const startFocusButton = document.getElementById("start-focus-btn");
-
 const clearFocusButton = document.getElementById("clear-focus-btn");
 
 const sessionPanel = document.getElementById("session-panel");
-const sessionDetails = document.getElementById("session-details");
 const sessionTitle = document.getElementById("session-title");
 const sessionMessage = document.getElementById("session-message");
+const sessionDetails = document.getElementById("session-details");
 
 const timerDisplay = document.getElementById("timer-display");
 const pauseTimerButton = document.getElementById("pause-timer-btn");
 const resetTimerButton = document.getElementById("reset-timer-btn");
+const endSessionButton = document.getElementById("end-session-btn");
 
 const focusSetupSections = document.querySelectorAll(".focus-setup");
 const focusIntroTexts = document.querySelectorAll(".focus-intro");
-const endSessionButton = document.getElementById("end-session-btn");
 
 const timeButtons = document.querySelectorAll(".time-btn");
 const customMinutesInput = document.getElementById("custom-minutes");
@@ -59,14 +61,12 @@ const achievementInput = document.getElementById("achievement-input");
 const saveAchievementButton = document.getElementById("save-achievement-btn");
 
 const winsList = document.getElementById("wins-list");
-const winsLink = document.getElementById("wins-link");
-const winsPage = document.getElementById("wins-page");
 
 let soundOn = true;
 let selectedProgress = "";
 let selectedAtmosphere = "";
 let selectedMinutes = 25;
-let focusDuration = 25 * 60;
+let focusDuration = selectedMinutes * 60;
 let timeLeft = focusDuration;
 let timerInterval = null;
 let timerRunning = false;
@@ -76,7 +76,37 @@ scene.style.display = "none";
 backButton.style.display = "none";
 soundButton.style.display = "none";
 
+function stopMoodSound() {
+  audioPlayer.pause();
+  audioPlayer.currentTime = 0;
+}
+
+function stopFocusSound() {
+  focusAudioPlayer.pause();
+  focusAudioPlayer.currentTime = 0;
+}
+
+function resetBodyBackground() {
+  document.body.style.background =
+    "linear-gradient(135deg, #3B7597, #6FD1D7)";
+}
+
+function resetFocusWorld() {
+  stopFocusSound();
+
+  sessionPanel.classList.remove(
+    "fireplace-theme",
+    "rain-theme",
+    "cafe-theme",
+    "night-theme"
+  );
+
+  resetBodyBackground();
+}
+
 function showMood(quoteText, imagePath, backgroundColor, soundPath) {
+  stopFocusSound();
+
   quote.textContent = quoteText;
 
   hero.classList.remove("active");
@@ -121,11 +151,8 @@ function resetMoodView() {
 
   quote.textContent = "Welcome to your cozy escape 🌿";
 
-  audioPlayer.pause();
-  audioPlayer.currentTime = 0;
-
-  document.body.style.background =
-    "linear-gradient(135deg, #3B7597, #6FD1D7)";
+  stopMoodSound();
+  resetBodyBackground();
 }
 
 function showPage(pageToShow) {
@@ -133,7 +160,7 @@ function showPage(pageToShow) {
   focusPage.classList.remove("active-page");
   winsPage.classList.remove("active-page");
   aboutPage.classList.remove("active-page");
-  
+
   pageToShow.classList.add("active-page");
 }
 
@@ -199,17 +226,27 @@ soundButton.addEventListener("click", function () {
 });
 
 moodLink.addEventListener("click", function () {
+  resetFocusWorld();
   resetMoodView();
   showPage(moodPage);
 });
 
 focusLink.addEventListener("click", function () {
   resetMoodView();
+  stopFocusSound();
   showPage(focusPage);
+});
+
+winsLink.addEventListener("click", function () {
+  resetMoodView();
+  resetFocusWorld();
+  renderSavedWins();
+  showPage(winsPage);
 });
 
 aboutLink.addEventListener("click", function () {
   resetMoodView();
+  resetFocusWorld();
   showPage(aboutPage);
 });
 
@@ -220,7 +257,6 @@ function selectProgressStyle(selectedCard, progressType) {
   selectedCard.classList.add("selected");
   selectedProgress = progressType;
 
-  console.log("Selected progress:", selectedProgress);
   updateChoiceSummary();
 }
 
@@ -233,19 +269,22 @@ function selectAtmosphere(selectedCard, atmosphereType) {
   selectedCard.classList.add("selected");
   selectedAtmosphere = atmosphereType;
 
-  console.log("Selected atmosphere:", selectedAtmosphere);
   updateChoiceSummary();
 }
 
 function updateChoiceSummary() {
   if (selectedProgress === "" && selectedAtmosphere === "") {
-    choiceSummary.textContent = "Choose a progress style and atmosphere to begin.";
+    choiceSummary.textContent =
+      "Choose a progress style and atmosphere to begin.";
   } else if (selectedProgress === "") {
-    choiceSummary.textContent = `Atmosphere selected: ${selectedAtmosphere}. Now choose a progress style.`;
+    choiceSummary.textContent =
+      `Atmosphere selected: ${selectedAtmosphere}. Now choose a progress style.`;
   } else if (selectedAtmosphere === "") {
-    choiceSummary.textContent = `Progress selected: ${selectedProgress}. Now choose an atmosphere.`;
+    choiceSummary.textContent =
+      `Progress selected: ${selectedProgress}. Now choose an atmosphere.`;
   } else {
-    choiceSummary.textContent = `Ready: ${selectedProgress} mode with ${selectedAtmosphere} atmosphere.`;
+    choiceSummary.textContent =
+      `Ready: ${selectedProgress} mode with ${selectedAtmosphere} atmosphere.`;
   }
 }
 
@@ -286,8 +325,6 @@ function clearFocusChoices() {
   nightChoice.classList.remove("selected");
 
   updateChoiceSummary();
-
-  console.log("Focus choices cleared");
 }
 
 clearFocusButton.addEventListener("click", function () {
@@ -305,7 +342,7 @@ function applyAtmosphereWorld() {
   if (selectedAtmosphere === "fireplace") {
     sessionPanel.classList.add("fireplace-theme");
 
-    sessionTitle.textContent = "Fireplace Focus";
+    sessionTitle.textContent = "🔥 Fireplace Focus";
     sessionMessage.textContent = "Stay warm. One small task at a time.";
 
     document.body.style.background =
@@ -315,7 +352,7 @@ function applyAtmosphereWorld() {
   if (selectedAtmosphere === "rain") {
     sessionPanel.classList.add("rain-theme");
 
-    sessionTitle.textContent = "Rain Window Focus";
+    sessionTitle.textContent = "🌧️ Rain Window Focus";
     sessionMessage.textContent = "Let the rain carry distractions away.";
 
     document.body.style.background =
@@ -325,7 +362,7 @@ function applyAtmosphereWorld() {
   if (selectedAtmosphere === "cafe") {
     sessionPanel.classList.add("cafe-theme");
 
-    sessionTitle.textContent = "Cafe Focus";
+    sessionTitle.textContent = "☕ Cafe Focus";
     sessionMessage.textContent = "Slow work is still progress.";
 
     document.body.style.background =
@@ -335,7 +372,7 @@ function applyAtmosphereWorld() {
   if (selectedAtmosphere === "night") {
     sessionPanel.classList.add("night-theme");
 
-    sessionTitle.textContent = "Night Study Focus";
+    sessionTitle.textContent = "🌙 Night Study Focus";
     sessionMessage.textContent = "Quiet night. Deep focus. No rush.";
 
     document.body.style.background =
@@ -343,9 +380,34 @@ function applyAtmosphereWorld() {
   }
 }
 
+function playFocusAtmosphereSound() {
+  stopMoodSound();
+  stopFocusSound();
+
+  if (selectedAtmosphere === "fireplace") {
+    focusAudioPlayer.src = "sounds/fireplace.mp3";
+  }
+
+  if (selectedAtmosphere === "rain") {
+    focusAudioPlayer.src = "sounds/rain-focus.mp3";
+  }
+
+  if (selectedAtmosphere === "cafe") {
+    focusAudioPlayer.src = "sounds/cafe.mp3";
+  }
+
+  if (selectedAtmosphere === "night") {
+    focusAudioPlayer.src = "sounds/night.mp3";
+  }
+
+  focusAudioPlayer.volume = 0.45;
+  focusAudioPlayer.play();
+}
+
 function startFocusSession() {
   if (selectedProgress === "" || selectedAtmosphere === "") {
-    choiceSummary.textContent = "Please choose both a progress style and an atmosphere first.";
+    choiceSummary.textContent =
+      "Please choose both a progress style and an atmosphere first.";
     return;
   }
 
@@ -357,16 +419,17 @@ function startFocusSession() {
     text.style.display = "none";
   });
 
+  completionPanel.style.display = "none";
   sessionPanel.style.display = "block";
+
   applyAtmosphereWorld();
+  playFocusAtmosphereSound();
 
   sessionDetails.textContent =
-  `Mode: ${selectedProgress} | Atmosphere: ${selectedAtmosphere} | Time: ${selectedMinutes} min`;
+    `Mode: ${selectedProgress} | Atmosphere: ${selectedAtmosphere} | Time: ${selectedMinutes} min`;
 
   resetTimer();
   startTimer();
-
-  console.log("Focus session started");
 }
 
 startFocusButton.addEventListener("click", function () {
@@ -401,8 +464,11 @@ function startTimer() {
       timerRunning = false;
 
       timerDisplay.textContent = "Done!";
-      sessionDetails.textContent = "Great job! You completed your focus session :)";
-      
+      sessionDetails.textContent =
+        "Great job! You completed your focus session :)";
+
+      stopFocusSound();
+
       sessionPanel.style.display = "none";
       completionPanel.style.display = "block";
     }
@@ -431,8 +497,6 @@ function resetTimer(shouldStartAgain = false) {
   if (shouldStartAgain) {
     startTimer();
   }
-
-  console.log("Timer reset to:", selectedMinutes, "minutes");
 }
 
 pauseTimerButton.addEventListener("click", function () {
@@ -452,7 +516,10 @@ function endFocusSession() {
   timerInterval = null;
   timerRunning = false;
 
+  stopFocusSound();
+
   sessionPanel.style.display = "none";
+  completionPanel.style.display = "none";
 
   focusSetupSections.forEach(function (section) {
     section.style.display = "block";
@@ -463,17 +530,7 @@ function endFocusSession() {
   });
 
   resetTimer();
-
-  document.body.style.background =
-  "linear-gradient(135deg, #3B7597, #6FD1D7)";
-  sessionPanel.classList.remove(
-    "fireplace-theme",
-    "rain-theme",
-    "cafe-theme",
-    "night-theme"
-  );
-
-  console.log("Focus session ended");
+  resetFocusWorld();
 }
 
 endSessionButton.addEventListener("click", function () {
@@ -496,8 +553,6 @@ function selectFocusTime(minutes, selectedButton) {
   customMinutesInput.value = "";
 
   updateTimerDisplay();
-
-  console.log("Selected time:", selectedMinutes, "minutes");
 }
 
 timeButtons.forEach(function (button) {
@@ -520,8 +575,6 @@ customMinutesInput.addEventListener("input", function () {
     });
 
     updateTimerDisplay();
-
-    console.log("Custom time:", selectedMinutes, "minutes");
   }
 });
 
@@ -534,12 +587,12 @@ saveAchievementButton.addEventListener("click", function () {
   }
 
   const newWin = {
-  text: achievementText,
-  minutes: selectedMinutes,
-  date: new Date().toLocaleDateString()
-};
+    text: achievementText,
+    minutes: selectedMinutes,
+    date: new Date().toLocaleDateString()
+  };
 
-savedWins.unshift(newWin);
+  savedWins.unshift(newWin);
 
   localStorage.setItem("cozyEscapeWins", JSON.stringify(savedWins));
 
@@ -557,12 +610,7 @@ savedWins.unshift(newWin);
     text.style.display = "block";
   });
 
-  showPage(winsPage);
-});
-
-winsLink.addEventListener("click", function () {
-  resetMoodView();
-  renderSavedWins();
+  resetFocusWorld();
   showPage(winsPage);
 });
 
@@ -584,9 +632,9 @@ function renderSavedWins() {
     listItem.classList.add("win-card");
 
     listItem.innerHTML = `
-    <button class="delete-win-btn" data-index="${index}">×</button>
-    <p>❤ ${win.text}</p>
-    <small>⏱️ ${win.minutes} min • 📅 ${win.date}</small>
+      <button class="delete-win-btn" data-index="${index}">×</button>
+      <p>❤ ${win.text}</p>
+      <small>⏱️ ${win.minutes} min • 📅 ${win.date}</small>
     `;
 
     winsList.appendChild(listItem);
