@@ -40,6 +40,8 @@ const clearFocusButton = document.getElementById("clear-focus-btn");
 
 const sessionPanel = document.getElementById("session-panel");
 const sessionDetails = document.getElementById("session-details");
+const sessionTitle = document.getElementById("session-title");
+const sessionMessage = document.getElementById("session-message");
 
 const timerDisplay = document.getElementById("timer-display");
 const pauseTimerButton = document.getElementById("pause-timer-btn");
@@ -292,6 +294,55 @@ clearFocusButton.addEventListener("click", function () {
   clearFocusChoices();
 });
 
+function applyAtmosphereWorld() {
+  sessionPanel.classList.remove(
+    "fireplace-theme",
+    "rain-theme",
+    "cafe-theme",
+    "night-theme"
+  );
+
+  if (selectedAtmosphere === "fireplace") {
+    sessionPanel.classList.add("fireplace-theme");
+
+    sessionTitle.textContent = "Fireplace Focus";
+    sessionMessage.textContent = "Stay warm. One small task at a time.";
+
+    document.body.style.background =
+      "linear-gradient(135deg, #7a3f2a, #f4b76b)";
+  }
+
+  if (selectedAtmosphere === "rain") {
+    sessionPanel.classList.add("rain-theme");
+
+    sessionTitle.textContent = "Rain Window Focus";
+    sessionMessage.textContent = "Let the rain carry distractions away.";
+
+    document.body.style.background =
+      "linear-gradient(135deg, #2f5f73, #8fc7d4)";
+  }
+
+  if (selectedAtmosphere === "cafe") {
+    sessionPanel.classList.add("cafe-theme");
+
+    sessionTitle.textContent = "Cafe Focus";
+    sessionMessage.textContent = "Slow work is still progress.";
+
+    document.body.style.background =
+      "linear-gradient(135deg, #6b4a35, #d6b08a)";
+  }
+
+  if (selectedAtmosphere === "night") {
+    sessionPanel.classList.add("night-theme");
+
+    sessionTitle.textContent = "Night Study Focus";
+    sessionMessage.textContent = "Quiet night. Deep focus. No rush.";
+
+    document.body.style.background =
+      "linear-gradient(135deg, #252b4a, #7b6fa6)";
+  }
+}
+
 function startFocusSession() {
   if (selectedProgress === "" || selectedAtmosphere === "") {
     choiceSummary.textContent = "Please choose both a progress style and an atmosphere first.";
@@ -307,6 +358,7 @@ function startFocusSession() {
   });
 
   sessionPanel.style.display = "block";
+  applyAtmosphereWorld();
 
   sessionDetails.textContent =
   `Mode: ${selectedProgress} | Atmosphere: ${selectedAtmosphere} | Time: ${selectedMinutes} min`;
@@ -411,6 +463,15 @@ function endFocusSession() {
   });
 
   resetTimer();
+
+  document.body.style.background =
+  "linear-gradient(135deg, #3B7597, #6FD1D7)";
+  sessionPanel.classList.remove(
+    "fireplace-theme",
+    "rain-theme",
+    "cafe-theme",
+    "night-theme"
+  );
 
   console.log("Focus session ended");
 }

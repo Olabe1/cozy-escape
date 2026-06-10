@@ -752,3 +752,49 @@ button:hover {
   background: rgba(255, 232, 186, 1);
   transform: scale(1.08);
 }
+
+#session-message {
+  margin: 0 auto 16px;
+  max-width: 460px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.5;
+  color: #26312c;
+}
+
+.session-panel.fireplace-theme {
+  background: radial-gradient(circle at top, rgba(255, 235, 170, 0.98), rgba(240, 160, 90, 0.9));
+  border: 2px solid rgba(255, 245, 210, 0.95);
+}
+
+.session-panel.rain-theme {
+  background: radial-gradient(circle at top, rgba(225, 250, 255, 0.95), rgba(135, 190, 210, 0.9));
+  border: 2px solid rgba(235, 255, 255, 0.95);
+}
+
+.session-panel.cafe-theme {
+  background: radial-gradient(circle at top, rgba(245, 220, 180, 0.96), rgba(190, 140, 95, 0.9));
+  border: 2px solid rgba(255, 235, 205, 0.95);
+}
+
+.session-panel.night-theme {
+  background: radial-gradient(circle at top, rgba(95, 85, 150, 0.96), rgba(35, 40, 75, 0.95));
+  border: 2px solid rgba(210, 205, 255, 0.75);
+}
+
+.session-panel.night-theme h2,
+.session-panel.night-theme #session-message,
+.session-panel.night-theme #session-details,
+.session-panel.night-theme #timer-display {
+  color: #fff7d6;
+}
+
+.session-panel.night-theme .clear-focus-btn {
+  background: rgba(255, 255, 255, 0.18);
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  color: #fff7d6;
+}
+
+.session-panel.night-theme .clear-focus-btn:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
