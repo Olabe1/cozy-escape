@@ -364,15 +364,23 @@ function pauseTimer() {
   pauseTimerButton.textContent = "Resume";
 }
 
-function resetTimer() {
+function resetTimer(shouldStartAgain = false) {
   clearInterval(timerInterval);
   timerInterval = null;
   timerRunning = false;
 
+  focusDuration = selectedMinutes * 60;
   timeLeft = focusDuration;
+
   updateTimerDisplay();
 
   pauseTimerButton.textContent = "Pause";
+
+  if (shouldStartAgain) {
+    startTimer();
+  }
+
+  console.log("Timer reset to:", selectedMinutes, "minutes");
 }
 
 pauseTimerButton.addEventListener("click", function () {
@@ -384,7 +392,7 @@ pauseTimerButton.addEventListener("click", function () {
 });
 
 resetTimerButton.addEventListener("click", function () {
-  resetTimer();
+  resetTimer(true);
 });
 
 function endFocusSession() {
@@ -464,7 +472,13 @@ saveAchievementButton.addEventListener("click", function () {
     return;
   }
 
-  savedWins.unshift(achievementText);
+  const newWin = {
+  text: achievementText,
+  minutes: selectedMinutes,
+  date: new Date().toLocaleDateString()
+};
+
+savedWins.unshift(newWin);
 
   localStorage.setItem("cozyEscapeWins", JSON.stringify(savedWins));
 
@@ -498,7 +512,7 @@ function renderSavedWins() {
     const emptyMessage = document.createElement("li");
     emptyMessage.classList.add("win-card");
     emptyMessage.innerHTML = `
-      <p>No small wins yet. Finish a focus session and save your first one ✨</p>
+      <p>No small wins yet. Finish a focus session and save your first one (˶ᵔ ᵕ ᵔ˶)</p>
     `;
     winsList.appendChild(emptyMessage);
     return;
@@ -509,8 +523,9 @@ function renderSavedWins() {
     listItem.classList.add("win-card");
 
     listItem.innerHTML = `
-      <p>❤ ${win}</p>
-      <button class="delete-win-btn" data-index="${index}">Delete</button>
+    <button class="delete-win-btn" data-index="${index}">×</button>
+    <p>❤ ${win.text}</p>
+    <small>⏱️ ${win.minutes} min • 📅 ${win.date}</small>
     `;
 
     winsList.appendChild(listItem);
