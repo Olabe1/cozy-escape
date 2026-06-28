@@ -37,6 +37,7 @@ const cafeChoice = document.getElementById("cafe-choice");
 const nightChoice = document.getElementById("night-choice");
 
 const choiceSummary = document.getElementById("choice-summary");
+const boboMessage = document.getElementById("bobo-message");
 const startFocusButton = document.getElementById("start-focus-btn");
 const clearFocusButton = document.getElementById("clear-focus-btn");
 
@@ -61,6 +62,7 @@ const achievementInput = document.getElementById("achievement-input");
 const saveAchievementButton = document.getElementById("save-achievement-btn");
 
 const winsList = document.getElementById("wins-list");
+
 
 let soundOn = true;
 let selectedProgress = "";
@@ -424,6 +426,7 @@ function startFocusSession() {
 
   applyAtmosphereWorld();
   playFocusAtmosphereSound();
+  boboMessage.textContent = "I’ll sit here quietly while you focus.";
 
   sessionDetails.textContent =
     `Mode: ${selectedProgress} | Atmosphere: ${selectedAtmosphere} | Time: ${selectedMinutes} min`;
@@ -466,6 +469,7 @@ function startTimer() {
       timerDisplay.textContent = "Done!";
       sessionDetails.textContent =
         "Great job! You completed your focus session :)";
+        boboMessage.textContent = "You did it. I’m proud of you for getting this far.";
 
       stopFocusSound();
 
@@ -597,6 +601,7 @@ saveAchievementButton.addEventListener("click", function () {
   localStorage.setItem("cozyEscapeWins", JSON.stringify(savedWins));
 
   renderSavedWins();
+  boboMessage.textContent = "Let’s keep this little win safe.";
 
   achievementInput.value = "";
 

@@ -798,3 +798,64 @@ button:hover {
 .session-panel.night-theme .clear-focus-btn:hover {
   background: rgba(255, 255, 255, 0.28);
 }
+
+.bobo-companion {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+
+  max-width: 650px;
+  margin: 0 auto 35px;
+  padding: 18px 22px;
+
+  border-radius: 28px;
+  background: rgba(255, 247, 214, 0.25);
+  border: 2px solid rgba(255, 247, 214, 0.45);
+
+  box-shadow: 0 14px 30px rgba(47, 58, 50, 0.14);
+}
+
+.bobo-img {
+  width: 110px;
+  height: auto;
+  flex-shrink: 0;
+
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.18));
+}
+
+.bobo-bubble {
+  position: relative;
+
+  padding: 16px 20px;
+  border-radius: 22px;
+
+  background: rgba(255, 255, 255, 0.72);
+  border: 2px solid rgba(255, 247, 214, 0.85);
+
+  color: #26312c;
+  text-align: left;
+}
+
+.bobo-bubble::before {
+  content: "";
+  position: absolute;
+  left: -10px;
+  top: 38px;
+
+  width: 18px;
+  height: 18px;
+
+  background: rgba(255, 255, 255, 0.72);
+  border-left: 2px solid rgba(255, 247, 214, 0.85);
+  border-bottom: 2px solid rgba(255, 247, 214, 0.85);
+
+  transform: rotate(45deg);
+}
+
+#bobo-message {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
