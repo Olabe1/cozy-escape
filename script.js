@@ -38,6 +38,7 @@ const nightChoice = document.getElementById("night-choice");
 
 const choiceSummary = document.getElementById("choice-summary");
 const boboMessage = document.getElementById("bobo-message");
+
 const startFocusButton = document.getElementById("start-focus-btn");
 const clearFocusButton = document.getElementById("clear-focus-btn");
 
@@ -62,7 +63,6 @@ const achievementInput = document.getElementById("achievement-input");
 const saveAchievementButton = document.getElementById("save-achievement-btn");
 
 const winsList = document.getElementById("wins-list");
-
 
 let soundOn = true;
 let selectedProgress = "";
@@ -91,6 +91,11 @@ function stopFocusSound() {
 function resetBodyBackground() {
   document.body.style.background =
     "linear-gradient(135deg, #3B7597, #6FD1D7)";
+}
+
+function resetBoboMessage() {
+  boboMessage.textContent =
+    "Hi, I’m Bobo. I’ll stay with you for a little while.";
 }
 
 function resetFocusWorld() {
@@ -228,27 +233,26 @@ soundButton.addEventListener("click", function () {
 });
 
 moodLink.addEventListener("click", function () {
-  resetFocusWorld();
+  endFocusSession();
   resetMoodView();
   showPage(moodPage);
 });
 
 focusLink.addEventListener("click", function () {
   resetMoodView();
-  stopFocusSound();
   showPage(focusPage);
 });
 
 winsLink.addEventListener("click", function () {
+  endFocusSession();
   resetMoodView();
-  resetFocusWorld();
   renderSavedWins();
   showPage(winsPage);
 });
 
 aboutLink.addEventListener("click", function () {
+  endFocusSession();
   resetMoodView();
-  resetFocusWorld();
   showPage(aboutPage);
 });
 
@@ -327,6 +331,7 @@ function clearFocusChoices() {
   nightChoice.classList.remove("selected");
 
   updateChoiceSummary();
+  resetBoboMessage();
 }
 
 clearFocusButton.addEventListener("click", function () {
@@ -410,6 +415,10 @@ function startFocusSession() {
   if (selectedProgress === "" || selectedAtmosphere === "") {
     choiceSummary.textContent =
       "Please choose both a progress style and an atmosphere first.";
+
+    boboMessage.textContent =
+      "Choose your little world first. I’ll wait right here.";
+
     return;
   }
 
@@ -426,6 +435,7 @@ function startFocusSession() {
 
   applyAtmosphereWorld();
   playFocusAtmosphereSound();
+
   boboMessage.textContent = "I’ll sit here quietly while you focus.";
 
   sessionDetails.textContent =
@@ -469,7 +479,9 @@ function startTimer() {
       timerDisplay.textContent = "Done!";
       sessionDetails.textContent =
         "Great job! You completed your focus session :)";
-        boboMessage.textContent = "You did it. I’m proud of you for getting this far.";
+
+      boboMessage.textContent =
+        "You did it. I’m proud of you for getting this far.";
 
       stopFocusSound();
 
@@ -484,6 +496,9 @@ function pauseTimer() {
   timerInterval = null;
   timerRunning = false;
   pauseTimerButton.textContent = "Resume";
+
+  boboMessage.textContent =
+    "Paused for a moment. That’s okay, we can continue gently.";
 }
 
 function resetTimer(shouldStartAgain = false) {
@@ -499,6 +514,7 @@ function resetTimer(shouldStartAgain = false) {
   pauseTimerButton.textContent = "Pause";
 
   if (shouldStartAgain) {
+    boboMessage.textContent = "Fresh start. I’m still here with you.";
     startTimer();
   }
 }
@@ -507,6 +523,7 @@ pauseTimerButton.addEventListener("click", function () {
   if (timerRunning) {
     pauseTimer();
   } else {
+    boboMessage.textContent = "Welcome back. Let’s continue softly.";
     startTimer();
   }
 });
@@ -535,6 +552,7 @@ function endFocusSession() {
 
   resetTimer();
   resetFocusWorld();
+  resetBoboMessage();
 }
 
 endSessionButton.addEventListener("click", function () {
@@ -587,6 +605,10 @@ saveAchievementButton.addEventListener("click", function () {
 
   if (achievementText === "") {
     alert("Please write one small win first.");
+
+    boboMessage.textContent =
+      "Even one tiny sentence is enough. What did you give time to?";
+
     return;
   }
 
@@ -601,6 +623,7 @@ saveAchievementButton.addEventListener("click", function () {
   localStorage.setItem("cozyEscapeWins", JSON.stringify(savedWins));
 
   renderSavedWins();
+
   boboMessage.textContent = "Let’s keep this little win safe.";
 
   achievementInput.value = "";

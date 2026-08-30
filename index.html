@@ -13,6 +13,7 @@
 
   <nav class="navbar">
     <div class="logo">Cozy Escape</div>
+
     <div class="nav-links">
       <button class="nav-btn" id="mood-link">Mood Escape</button>
       <button class="nav-btn" id="focus-link">Focus Garden</button>
@@ -23,9 +24,10 @@
 
   <main class="app">
 
+    <!-- Mood Escape Page -->
     <section class="hero page active-page" id="mood-page">
       <p class="eyebrow" id="title-small">A soft little escape</p>
-      
+
       <p id="quote">Welcome to your cozy escape 🌿</p>
 
       <h1 id="main-title">How are you feeling today?</h1>
@@ -48,31 +50,40 @@
       <button id="sound-btn" class="sound-btn">🔊 Sound On</button>
     </section>
 
+    <!-- Focus Garden Page -->
     <section class="hero page" id="focus-page">
       <p class="eyebrow focus-intro">Focus Garden</p>
+
       <h1 class="page-title focus-intro">Build your focus world</h1>
+
       <p class="page-description focus-intro">
         Choose your cozy progress style and atmosphere before starting a focus session.
       </p>
-      <div class="bobo-companion focus-intro">
-        <img src="images/bobo.png" alt="Bobo the panda companion" class="bobo-img" />
+
+      <div class="bobo-companion">
+        <img
+          src="images/bobo.png"
+          alt="Bobo the panda companion"
+          class="bobo-img"
+        />
+
         <div class="bobo-bubble">
           <p id="bobo-message">
             Hi, I’m Bobo. I’ll stay with you for a little while.
           </p>
         </div>
       </div>
-      
+
       <div class="focus-section focus-setup">
         <h2>Choose your progress style</h2>
-        
+
         <div class="choice-grid progress-grid">
           <button class="choice-card" id="plant-choice">
             <span>🌱</span>
             <strong>Growing Plant</strong>
             <p>Grow a little plant with every completed session.</p>
           </button>
-          
+
           <button class="choice-card" id="room-choice">
             <span>🏡</span>
             <strong>Cozy Room</strong>
@@ -80,22 +91,23 @@
           </button>
         </div>
       </div>
-      
+
       <div class="focus-section focus-setup">
         <h2>Choose your atmosphere</h2>
+
         <div class="atmosphere-row">
           <button class="atmosphere-card" id="fireplace-choice">
             🔥 Fireplace
           </button>
-          
+
           <button class="atmosphere-card" id="rain-choice">
             🌧️ Rain Window
           </button>
-          
+
           <button class="atmosphere-card" id="cafe-choice">
             ☕ Cafe
           </button>
-          
+
           <button class="atmosphere-card" id="night-choice">
             🌙 Night Study
           </button>
@@ -103,26 +115,40 @@
       </div>
 
       <div class="focus-section focus-setup">
-  <h2>Choose your focus time</h2>
+        <h2>Choose your focus time</h2>
 
-  <div class="time-options">
-    <button class="time-btn" data-minutes="15">15 min</button>
-    <button class="time-btn selected" data-minutes="25">25 min</button>
-    <button class="time-btn" data-minutes="45">45 min</button>
-    <button class="time-btn" data-minutes="60">60 min</button>
-  </div>
+        <div class="time-options">
+          <button class="time-btn" data-minutes="15">15 min</button>
+          <button class="time-btn selected" data-minutes="25">25 min</button>
+          <button class="time-btn" data-minutes="45">45 min</button>
+          <button class="time-btn" data-minutes="60">60 min</button>
+        </div>
 
-  <div class="custom-time">
-    <label for="custom-minutes">Custom minutes</label>
-    <input type="number" id="custom-minutes" min="1" max="180" placeholder="Example: 30" />
-  </div>
-</div>
-      
+        <div class="custom-time">
+          <label for="custom-minutes">Custom minutes</label>
+          <input
+            type="number"
+            id="custom-minutes"
+            min="1"
+            max="180"
+            placeholder="Example: 30"
+          />
+        </div>
+      </div>
+
       <div class="focus-summary focus-setup">
-        <p id="choice-summary">Choose a progress style and atmosphere to begin.</p>
+        <p id="choice-summary">
+          Choose a progress style and atmosphere to begin.
+        </p>
+
         <div class="focus-actions">
-          <button id="start-focus-btn" class="start-focus-btn">Start Focus Session</button>
-          <button id="clear-focus-btn" class="clear-focus-btn">Clear Choices</button>
+          <button id="start-focus-btn" class="start-focus-btn">
+            Start Focus Session
+          </button>
+
+          <button id="clear-focus-btn" class="clear-focus-btn">
+            Clear Choices
+          </button>
         </div>
       </div>
 
@@ -133,6 +159,7 @@
 
         <div class="timer-box">
           <p id="timer-display">25:00</p>
+
           <div class="timer-actions">
             <button id="pause-timer-btn" class="clear-focus-btn">Pause</button>
             <button id="reset-timer-btn" class="clear-focus-btn">Reset</button>
@@ -143,13 +170,14 @@
 
       <div class="completion-panel" id="completion-panel">
         <h2>Session complete ✨</h2>
+
         <p>
           Great job. Take a small breath and write what you completed or learned.
         </p>
-        
+
         <textarea
-        id="achievement-input"
-        placeholder="Example: I read a few pages, cleaned my room, practiced drawing, or finished one small task."
+          id="achievement-input"
+          placeholder="Example: I read a few pages, cleaned my room, practiced drawing, or finished one small task."
         ></textarea>
 
         <button id="save-achievement-btn" class="start-focus-btn">
@@ -158,50 +186,55 @@
       </div>
     </section>
 
+    <!-- Small Wins Page -->
     <section class="hero page wins-page" id="wins-page">
       <p class="eyebrow">Small Wins</p>
+
       <h1 class="page-title">Your cozy progress</h1>
-      
+
       <p class="page-description">
         Every small step counts. Here you can see the little things you finished,
         learned, or gave time to.
       </p>
-      
+
       <div class="wins-board">
         <h2>Saved small wins ✨</h2>
         <ul id="wins-list"></ul>
       </div>
     </section>
 
+    <!-- About Page -->
     <section class="hero page about-card" id="about-page">
       <p class="eyebrow">About Cozy Escape</p>
+
       <h1 class="page-title about-title">Relax. Focus. Grow.</h1>
+
       <p class="page-description about-description">
         Cozy Escape is a small mood-based web app designed to help users slow down,
         choose a calming atmosphere, and enjoy a peaceful moment.
       </p>
-      
+
       <div class="about-badge">
         🌧️ A cozy digital space for calm moments, soft sounds, and mindful focus.
       </div>
-      
+
       <div class="about-points">
         <div class="about-point">
           <span>🌿</span>
           <h3>Mood Escape</h3>
           <p>Choose a mood and enter a relaxing visual scene.</p>
         </div>
-        
+
         <div class="about-point">
           <span>🎧</span>
           <h3>Ambient Sounds</h3>
           <p>Listen to soft background sounds that match your feeling.</p>
         </div>
-        
+
         <div class="about-point">
-          <span>✨</span>
-          <h3>Future Growth</h3>
-          <p>Focus sessions and saved achievements will be added later.</p>
+          <span>🐼</span>
+          <h3>Bobo Companion</h3>
+          <p>Meet Bobo, a gentle panda friend who gives soft encouragement.</p>
         </div>
       </div>
     </section>
@@ -210,6 +243,7 @@
 
   <audio id="audio-player" loop></audio>
   <audio id="focus-audio-player" loop></audio>
+
   <script src="script.js"></script>
 </body>
 </html>
