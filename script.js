@@ -20,7 +20,6 @@ const introText = document.getElementById("intro-text");
 
 const hero = document.querySelector(".hero");
 
-
 // ======================================================
 // 2. AUDIO ELEMENTS
 // ======================================================
@@ -29,7 +28,6 @@ const audioPlayer = document.getElementById("audio-player");
 const focusAudioPlayer = document.getElementById("focus-audio-player");
 
 const soundButton = document.getElementById("sound-btn");
-
 
 // ======================================================
 // 3. NAVIGATION
@@ -45,7 +43,6 @@ const focusPage = document.getElementById("focus-page");
 const winsPage = document.getElementById("wins-page");
 const aboutPage = document.getElementById("about-page");
 
-
 // ======================================================
 // 4. FOCUS GARDEN CHOICES
 // ======================================================
@@ -60,13 +57,11 @@ const nightChoice = document.getElementById("night-choice");
 
 const choiceSummary = document.getElementById("choice-summary");
 
-
 // ======================================================
 // 5. BOBO
 // ======================================================
 
 const boboMessage = document.getElementById("bobo-message");
-
 
 // ======================================================
 // 6. PROGRESS WORLD
@@ -80,7 +75,6 @@ const progressWorldText =
 
 const resetProgressButton =
   document.getElementById("reset-progress-btn");
-
 
 // ======================================================
 // 7. FOCUS SESSION
@@ -104,7 +98,6 @@ const sessionMessage =
 const sessionDetails =
   document.getElementById("session-details");
 
-
 // ======================================================
 // 8. TIMER
 // ======================================================
@@ -127,7 +120,6 @@ const timeButtons =
 const customMinutesInput =
   document.getElementById("custom-minutes");
 
-
 // ======================================================
 // 9. FOCUS PAGE SECTIONS
 // ======================================================
@@ -137,7 +129,6 @@ const focusSetupSections =
 
 const focusIntroTexts =
   document.querySelectorAll(".focus-intro");
-
 
 // ======================================================
 // 10. COMPLETION + SMALL WINS
@@ -155,7 +146,6 @@ const saveAchievementButton =
 const winsList =
   document.getElementById("wins-list");
 
-
 // ======================================================
 // 11. STATS BOARD
 // ======================================================
@@ -171,7 +161,6 @@ const plantLevelStat =
 
 const roomLevelStat =
   document.getElementById("room-level-stat");
-
 
 // ======================================================
 // 12. APP STATE
@@ -190,7 +179,6 @@ let timeLeft = focusDuration;
 let timerInterval = null;
 let timerRunning = false;
 
-
 // ======================================================
 // 13. LOAD SAVED DATA FROM LOCAL STORAGE
 // ======================================================
@@ -204,7 +192,6 @@ let plantLevel =
 let roomLevel =
   Number(localStorage.getItem("cozyEscapeRoomLevel")) || 0;
 
-
 // ======================================================
 // 14. INITIAL PAGE STATE
 // ======================================================
@@ -212,7 +199,6 @@ let roomLevel =
 scene.style.display = "none";
 backButton.style.display = "none";
 soundButton.style.display = "none";
-
 
 // ======================================================
 // 15. GENERAL HELPER FUNCTIONS
@@ -666,7 +652,6 @@ function applyAtmosphereWorld() {
   }
 }
 
-
 // ======================================================
 // 25. ATMOSPHERE SOUND
 // ======================================================
@@ -700,7 +685,6 @@ function playFocusAtmosphereSound() {
   focusAudioPlayer.play();
 }
 
-
 // ======================================================
 // 26. PROGRESS WORLD
 // ======================================================
@@ -715,14 +699,33 @@ function renderProgressWorld() {
     "🌳"
   ];
 
+  const plantNames = [
+    "Seed",
+    "Sprout",
+    "Little Leaves",
+    "Growing Plant",
+    "Blooming",
+    "Full Tree"
+  ];
+
   const roomItems = [
-    "",
+    "🏡",
     "🕯️",
     "🕯️ 🪴",
     "🕯️ 🪴 📚",
     "🕯️ 🪴 📚 🧸",
     "🕯️ 🪴 📚 🧸 🛋️",
     "🕯️ 🪴 📚 🧸 🛋️ 🪟"
+  ];
+
+  const roomNames = [
+    "Empty Room",
+    "Candle Corner",
+    "Fresh Plant",
+    "Reading Nook",
+    "Comfort Space",
+    "Cozy Lounge",
+    "Dream Window"
   ];
 
   if (selectedProgress === "plant") {
@@ -732,11 +735,14 @@ function renderProgressWorld() {
         plantStages.length - 1
       );
 
+    const currentPlantName =
+      plantNames[safePlantLevel];
+
     progressWorldVisual.textContent =
       plantStages[safePlantLevel];
 
     progressWorldText.textContent =
-      `Your plant has grown through ${plantLevel} focus session(s). Keep growing gently.`;
+      `${currentPlantName} • ${plantLevel} focus session(s). Keep growing gently.`;
 
     resetProgressButton.style.display =
       "inline-block";
@@ -752,11 +758,14 @@ function renderProgressWorld() {
         roomItems.length - 1
       );
 
+    const currentRoomName =
+      roomNames[safeRoomLevel];
+
     progressWorldVisual.textContent =
-      roomItems[safeRoomLevel] || "🏡";
+      roomItems[safeRoomLevel];
 
     progressWorldText.textContent =
-      `Your cozy room has grown through ${roomLevel} focus session(s). Keep building your soft space.`;
+      `${currentRoomName} • ${roomLevel} focus session(s). Keep building your soft space.`;
 
     resetProgressButton.style.display =
       "inline-block";
@@ -1257,7 +1266,6 @@ saveAchievementButton.addEventListener(
   }
 );
 
-
 // ======================================================
 // 37. RENDER STATS
 // ======================================================
@@ -1284,7 +1292,6 @@ function renderStats() {
   roomLevelStat.textContent =
     roomLevel;
 }
-
 
 // ======================================================
 // 38. RENDER SAVED SMALL WINS
@@ -1331,7 +1338,6 @@ function renderSavedWins() {
           data-index="${index}">
           ×
         </button>
-
         <p>
           ❤ ${win.text}
         </p>
