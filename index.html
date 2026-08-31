@@ -50,6 +50,7 @@
       <button id="sound-btn" class="sound-btn">🔊 Sound On</button>
     </section>
 
+
     <!-- Focus Garden Page -->
     <section class="hero page" id="focus-page">
       <p class="eyebrow focus-intro">Focus Garden</p>
@@ -60,6 +61,8 @@
         Choose your cozy progress style and atmosphere before starting a focus session.
       </p>
 
+
+      <!-- Bobo Companion -->
       <div class="bobo-companion">
         <img
           src="images/bobo.png"
@@ -74,6 +77,22 @@
         </div>
       </div>
 
+
+      <!-- Progress World -->
+      <div class="progress-world" id="progress-world">
+        <p class="progress-world-label">Your little progress world</p>
+
+        <div class="progress-world-visual" id="progress-world-visual">
+          🌰
+        </div>
+
+        <p class="progress-world-text" id="progress-world-text">
+          Complete focus sessions to grow your plant or build your cozy room.
+        </p>
+      </div>
+
+
+      <!-- Progress Style Choices -->
       <div class="focus-section focus-setup">
         <h2>Choose your progress style</h2>
 
@@ -92,6 +111,8 @@
         </div>
       </div>
 
+
+      <!-- Atmosphere Choices -->
       <div class="focus-section focus-setup">
         <h2>Choose your atmosphere</h2>
 
@@ -114,6 +135,8 @@
         </div>
       </div>
 
+
+      <!-- Focus Time Choices -->
       <div class="focus-section focus-setup">
         <h2>Choose your focus time</h2>
 
@@ -126,6 +149,7 @@
 
         <div class="custom-time">
           <label for="custom-minutes">Custom minutes</label>
+
           <input
             type="number"
             id="custom-minutes"
@@ -136,6 +160,8 @@
         </div>
       </div>
 
+
+      <!-- Focus Summary -->
       <div class="focus-summary focus-setup">
         <p id="choice-summary">
           Choose a progress style and atmosphere to begin.
@@ -152,22 +178,40 @@
         </div>
       </div>
 
+
+      <!-- Active Focus Session Panel -->
       <div class="session-panel" id="session-panel">
         <h2 id="session-title">Your focus session is ready!</h2>
-        <p id="session-message">Choose your atmosphere and begin gently.</p>
-        <p id="session-details">Choose your options first.</p>
+
+        <p id="session-message">
+          Choose your atmosphere and begin gently.
+        </p>
+
+        <p id="session-details">
+          Choose your options first.
+        </p>
 
         <div class="timer-box">
           <p id="timer-display">25:00</p>
 
           <div class="timer-actions">
-            <button id="pause-timer-btn" class="clear-focus-btn">Pause</button>
-            <button id="reset-timer-btn" class="clear-focus-btn">Reset</button>
-            <button id="end-session-btn" class="clear-focus-btn">End Session</button>
+            <button id="pause-timer-btn" class="clear-focus-btn">
+              Pause
+            </button>
+
+            <button id="reset-timer-btn" class="clear-focus-btn">
+              Reset
+            </button>
+
+            <button id="end-session-btn" class="clear-focus-btn">
+              End Session
+            </button>
           </div>
         </div>
       </div>
 
+
+      <!-- Completion Panel -->
       <div class="completion-panel" id="completion-panel">
         <h2>Session complete ✨</h2>
 
@@ -186,6 +230,7 @@
       </div>
     </section>
 
+
     <!-- Small Wins Page -->
     <section class="hero page wins-page" id="wins-page">
       <p class="eyebrow">Small Wins</p>
@@ -199,9 +244,11 @@
 
       <div class="wins-board">
         <h2>Saved small wins ✨</h2>
+
         <ul id="wins-list"></ul>
       </div>
     </section>
+
 
     <!-- About Page -->
     <section class="hero page about-card" id="about-page">
@@ -241,9 +288,13 @@
 
   </main>
 
+
+  <!-- Audio Players -->
   <audio id="audio-player" loop></audio>
   <audio id="focus-audio-player" loop></audio>
 
+
+  <!-- JavaScript -->
   <script src="script.js"></script>
 </body>
 </html>

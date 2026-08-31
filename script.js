@@ -1,8 +1,13 @@
+// ======================================================
+// 1. MOOD ESCAPE ELEMENTS
+// ======================================================
+
 const peacefulButton = document.getElementById("peaceful-btn");
 const tiredButton = document.getElementById("tired-btn");
 const stressedButton = document.getElementById("stressed-btn");
 const dreamyButton = document.getElementById("dreamy-btn");
 const hungryButton = document.getElementById("hungry-btn");
+
 const backButton = document.getElementById("back-btn");
 
 const quote = document.getElementById("quote");
@@ -12,11 +17,23 @@ const moodButtons = document.querySelector(".mood-buttons");
 const titleSmall = document.getElementById("title-small");
 const mainTitle = document.getElementById("main-title");
 const introText = document.getElementById("intro-text");
+
 const hero = document.querySelector(".hero");
+
+
+// ======================================================
+// 2. AUDIO ELEMENTS
+// ======================================================
 
 const audioPlayer = document.getElementById("audio-player");
 const focusAudioPlayer = document.getElementById("focus-audio-player");
+
 const soundButton = document.getElementById("sound-btn");
+
+
+// ======================================================
+// 3. NAVIGATION
+// ======================================================
 
 const moodLink = document.getElementById("mood-link");
 const focusLink = document.getElementById("focus-link");
@@ -28,6 +45,11 @@ const focusPage = document.getElementById("focus-page");
 const winsPage = document.getElementById("wins-page");
 const aboutPage = document.getElementById("about-page");
 
+
+// ======================================================
+// 4. FOCUS GARDEN CHOICES
+// ======================================================
+
 const plantChoice = document.getElementById("plant-choice");
 const roomChoice = document.getElementById("room-choice");
 
@@ -37,46 +59,152 @@ const cafeChoice = document.getElementById("cafe-choice");
 const nightChoice = document.getElementById("night-choice");
 
 const choiceSummary = document.getElementById("choice-summary");
+
+
+// ======================================================
+// 5. BOBO
+// ======================================================
+
 const boboMessage = document.getElementById("bobo-message");
 
-const startFocusButton = document.getElementById("start-focus-btn");
-const clearFocusButton = document.getElementById("clear-focus-btn");
 
-const sessionPanel = document.getElementById("session-panel");
-const sessionTitle = document.getElementById("session-title");
-const sessionMessage = document.getElementById("session-message");
-const sessionDetails = document.getElementById("session-details");
+// ======================================================
+// 6. PROGRESS WORLD
+// ======================================================
 
-const timerDisplay = document.getElementById("timer-display");
-const pauseTimerButton = document.getElementById("pause-timer-btn");
-const resetTimerButton = document.getElementById("reset-timer-btn");
-const endSessionButton = document.getElementById("end-session-btn");
+const progressWorldVisual =
+  document.getElementById("progress-world-visual");
 
-const focusSetupSections = document.querySelectorAll(".focus-setup");
-const focusIntroTexts = document.querySelectorAll(".focus-intro");
+const progressWorldText =
+  document.getElementById("progress-world-text");
 
-const timeButtons = document.querySelectorAll(".time-btn");
-const customMinutesInput = document.getElementById("custom-minutes");
 
-const completionPanel = document.getElementById("completion-panel");
-const achievementInput = document.getElementById("achievement-input");
-const saveAchievementButton = document.getElementById("save-achievement-btn");
+// ======================================================
+// 7. FOCUS SESSION
+// ======================================================
 
-const winsList = document.getElementById("wins-list");
+const startFocusButton =
+  document.getElementById("start-focus-btn");
 
+const clearFocusButton =
+  document.getElementById("clear-focus-btn");
+
+const sessionPanel =
+  document.getElementById("session-panel");
+
+const sessionTitle =
+  document.getElementById("session-title");
+
+const sessionMessage =
+  document.getElementById("session-message");
+
+const sessionDetails =
+  document.getElementById("session-details");
+
+
+// ======================================================
+// 8. TIMER
+// ======================================================
+
+const timerDisplay =
+  document.getElementById("timer-display");
+
+const pauseTimerButton =
+  document.getElementById("pause-timer-btn");
+
+const resetTimerButton =
+  document.getElementById("reset-timer-btn");
+
+const endSessionButton =
+  document.getElementById("end-session-btn");
+
+const timeButtons =
+  document.querySelectorAll(".time-btn");
+
+const customMinutesInput =
+  document.getElementById("custom-minutes");
+
+
+// ======================================================
+// 9. FOCUS PAGE SECTIONS
+// ======================================================
+
+const focusSetupSections =
+  document.querySelectorAll(".focus-setup");
+
+const focusIntroTexts =
+  document.querySelectorAll(".focus-intro");
+
+
+// ======================================================
+// 10. COMPLETION + SMALL WINS
+// ======================================================
+
+const completionPanel =
+  document.getElementById("completion-panel");
+
+const achievementInput =
+  document.getElementById("achievement-input");
+
+const saveAchievementButton =
+  document.getElementById("save-achievement-btn");
+
+const winsList =
+  document.getElementById("wins-list");
+
+
+// ======================================================
+// 11. APP STATE
+// ======================================================
+
+// Mood sound starts enabled
 let soundOn = true;
+
+// Focus choices
 let selectedProgress = "";
 let selectedAtmosphere = "";
+
+// Default focus time
 let selectedMinutes = 25;
+
+// Convert minutes into seconds
 let focusDuration = selectedMinutes * 60;
 let timeLeft = focusDuration;
+
+// Timer variables
 let timerInterval = null;
 let timerRunning = false;
-let savedWins = JSON.parse(localStorage.getItem("cozyEscapeWins")) || [];
+
+
+// ======================================================
+// 12. LOAD SAVED DATA FROM LOCAL STORAGE
+// ======================================================
+
+// Load saved Small Wins
+let savedWins =
+  JSON.parse(localStorage.getItem("cozyEscapeWins")) || [];
+
+// Load plant progress
+let plantLevel =
+  Number(localStorage.getItem("cozyEscapePlantLevel")) || 0;
+
+// Load room progress
+let roomLevel =
+  Number(localStorage.getItem("cozyEscapeRoomLevel")) || 0;
+
+
+// ======================================================
+// 13. INITIAL PAGE STATE
+// ======================================================
 
 scene.style.display = "none";
 backButton.style.display = "none";
 soundButton.style.display = "none";
+
+
+// ======================================================
+// 14. GENERAL HELPER FUNCTIONS
+// ======================================================
 
 function stopMoodSound() {
   audioPlayer.pause();
@@ -108,10 +236,41 @@ function resetFocusWorld() {
     "night-theme"
   );
 
+  sessionTitle.textContent =
+    "Your focus session is ready!";
+
+  sessionMessage.textContent =
+    "Choose your atmosphere and begin gently.";
+
   resetBodyBackground();
 }
 
-function showMood(quoteText, imagePath, backgroundColor, soundPath) {
+
+// ======================================================
+// 15. PAGE NAVIGATION
+// ======================================================
+
+function showPage(pageToShow) {
+  moodPage.classList.remove("active-page");
+  focusPage.classList.remove("active-page");
+  winsPage.classList.remove("active-page");
+  aboutPage.classList.remove("active-page");
+
+  pageToShow.classList.add("active-page");
+}
+
+
+// ======================================================
+// 16. MOOD ESCAPE
+// ======================================================
+
+function showMood(
+  quoteText,
+  imagePath,
+  backgroundColor,
+  soundPath
+) {
+  // Stop any focus audio first
   stopFocusSound();
 
   quote.textContent = quoteText;
@@ -122,21 +281,28 @@ function showMood(quoteText, imagePath, backgroundColor, soundPath) {
     hero.classList.add("active");
   }, 10);
 
+  // Hide intro content
   titleSmall.style.display = "none";
   mainTitle.style.display = "none";
   introText.style.display = "none";
 
+  // Show mood scene
   scene.style.display = "block";
   scene.style.backgroundImage = `url("${imagePath}")`;
   scene.style.backgroundSize = "cover";
   scene.style.backgroundPosition = "center";
 
+  // Hide mood buttons
   moodButtons.style.display = "none";
+
+  // Show Back + Sound buttons
   backButton.style.display = "inline-block";
   soundButton.style.display = "inline-block";
 
+  // Change page background
   document.body.style.background = backgroundColor;
 
+  // Load selected mood sound
   audioPlayer.src = soundPath;
 
   if (soundOn) {
@@ -144,10 +310,14 @@ function showMood(quoteText, imagePath, backgroundColor, soundPath) {
   }
 }
 
+
+// Reset Mood Escape back to normal
 function resetMoodView() {
   scene.style.display = "none";
+
   backButton.style.display = "none";
   soundButton.style.display = "none";
+
   moodButtons.style.display = "block";
 
   titleSmall.style.display = "block";
@@ -156,20 +326,17 @@ function resetMoodView() {
 
   hero.classList.remove("active");
 
-  quote.textContent = "Welcome to your cozy escape 🌿";
+  quote.textContent =
+    "Welcome to your cozy escape 🌿";
 
   stopMoodSound();
   resetBodyBackground();
 }
 
-function showPage(pageToShow) {
-  moodPage.classList.remove("active-page");
-  focusPage.classList.remove("active-page");
-  winsPage.classList.remove("active-page");
-  aboutPage.classList.remove("active-page");
 
-  pageToShow.classList.add("active-page");
-}
+// ======================================================
+// 17. MOOD BUTTON EVENTS
+// ======================================================
 
 peacefulButton.addEventListener("click", function () {
   showMood(
@@ -216,107 +383,205 @@ hungryButton.addEventListener("click", function () {
   );
 });
 
+
+// Back button
 backButton.addEventListener("click", function () {
   resetMoodView();
 });
 
+
+// Mood sound toggle
 soundButton.addEventListener("click", function () {
   if (soundOn) {
     soundOn = false;
+
     audioPlayer.pause();
-    soundButton.textContent = "🔇 Sound Off";
+
+    soundButton.textContent =
+      "🔇 Sound Off";
   } else {
     soundOn = true;
+
     audioPlayer.play();
-    soundButton.textContent = "🔊 Sound On";
+
+    soundButton.textContent =
+      "🔊 Sound On";
   }
 });
 
+
+// ======================================================
+// 18. NAVIGATION BUTTON EVENTS
+// ======================================================
+
 moodLink.addEventListener("click", function () {
+  // Stop any active focus session
   endFocusSession();
+
   resetMoodView();
+
   showPage(moodPage);
 });
 
+
 focusLink.addEventListener("click", function () {
   resetMoodView();
+
+  stopFocusSound();
+
+  resetBoboMessage();
+
   showPage(focusPage);
 });
 
+
 winsLink.addEventListener("click", function () {
   endFocusSession();
+
   resetMoodView();
+
   renderSavedWins();
+
   showPage(winsPage);
 });
 
+
 aboutLink.addEventListener("click", function () {
   endFocusSession();
+
   resetMoodView();
+
   showPage(aboutPage);
 });
 
-function selectProgressStyle(selectedCard, progressType) {
+
+// ======================================================
+// 19. SELECT PROGRESS STYLE
+// ======================================================
+
+function selectProgressStyle(
+  selectedCard,
+  progressType
+) {
+  // Remove selection from both
   plantChoice.classList.remove("selected");
   roomChoice.classList.remove("selected");
 
+  // Highlight clicked card
   selectedCard.classList.add("selected");
+
+  // Save selected type
   selectedProgress = progressType;
 
   updateChoiceSummary();
+
+  // Show corresponding progress
+  renderProgressWorld();
 }
 
-function selectAtmosphere(selectedCard, atmosphereType) {
+
+plantChoice.addEventListener("click", function () {
+  selectProgressStyle(
+    plantChoice,
+    "plant"
+  );
+});
+
+
+roomChoice.addEventListener("click", function () {
+  selectProgressStyle(
+    roomChoice,
+    "room"
+  );
+});
+
+
+// ======================================================
+// 20. SELECT ATMOSPHERE
+// ======================================================
+
+function selectAtmosphere(
+  selectedCard,
+  atmosphereType
+) {
   fireplaceChoice.classList.remove("selected");
   rainChoice.classList.remove("selected");
   cafeChoice.classList.remove("selected");
   nightChoice.classList.remove("selected");
 
   selectedCard.classList.add("selected");
+
   selectedAtmosphere = atmosphereType;
 
   updateChoiceSummary();
 }
 
+
+fireplaceChoice.addEventListener("click", function () {
+  selectAtmosphere(
+    fireplaceChoice,
+    "fireplace"
+  );
+});
+
+
+rainChoice.addEventListener("click", function () {
+  selectAtmosphere(
+    rainChoice,
+    "rain"
+  );
+});
+
+
+cafeChoice.addEventListener("click", function () {
+  selectAtmosphere(
+    cafeChoice,
+    "cafe"
+  );
+});
+
+
+nightChoice.addEventListener("click", function () {
+  selectAtmosphere(
+    nightChoice,
+    "night"
+  );
+});
+
+
+// ======================================================
+// 21. UPDATE CHOICE SUMMARY
+// ======================================================
+
 function updateChoiceSummary() {
-  if (selectedProgress === "" && selectedAtmosphere === "") {
+  if (
+    selectedProgress === "" &&
+    selectedAtmosphere === ""
+  ) {
     choiceSummary.textContent =
       "Choose a progress style and atmosphere to begin.";
-  } else if (selectedProgress === "") {
+  }
+
+  else if (selectedProgress === "") {
     choiceSummary.textContent =
       `Atmosphere selected: ${selectedAtmosphere}. Now choose a progress style.`;
-  } else if (selectedAtmosphere === "") {
+  }
+
+  else if (selectedAtmosphere === "") {
     choiceSummary.textContent =
       `Progress selected: ${selectedProgress}. Now choose an atmosphere.`;
-  } else {
+  }
+
+  else {
     choiceSummary.textContent =
       `Ready: ${selectedProgress} mode with ${selectedAtmosphere} atmosphere.`;
   }
 }
 
-plantChoice.addEventListener("click", function () {
-  selectProgressStyle(plantChoice, "plant");
-});
 
-roomChoice.addEventListener("click", function () {
-  selectProgressStyle(roomChoice, "room");
-});
-
-fireplaceChoice.addEventListener("click", function () {
-  selectAtmosphere(fireplaceChoice, "fireplace");
-});
-
-rainChoice.addEventListener("click", function () {
-  selectAtmosphere(rainChoice, "rain");
-});
-
-cafeChoice.addEventListener("click", function () {
-  selectAtmosphere(cafeChoice, "cafe");
-});
-
-nightChoice.addEventListener("click", function () {
-  selectAtmosphere(nightChoice, "night");
-});
+// ======================================================
+// 22. CLEAR FOCUS CHOICES
+// ======================================================
 
 function clearFocusChoices() {
   selectedProgress = "";
@@ -331,12 +596,23 @@ function clearFocusChoices() {
   nightChoice.classList.remove("selected");
 
   updateChoiceSummary();
+
+  // IMPORTANT:
+  // Reset progress card to default view
+  renderProgressWorld();
+
   resetBoboMessage();
 }
+
 
 clearFocusButton.addEventListener("click", function () {
   clearFocusChoices();
 });
+
+
+// ======================================================
+// 23. ATMOSPHERE VISUAL WORLD
+// ======================================================
 
 function applyAtmosphereWorld() {
   sessionPanel.classList.remove(
@@ -346,73 +622,197 @@ function applyAtmosphereWorld() {
     "night-theme"
   );
 
-  if (selectedAtmosphere === "fireplace") {
-    sessionPanel.classList.add("fireplace-theme");
 
-    sessionTitle.textContent = "🔥 Fireplace Focus";
-    sessionMessage.textContent = "Stay warm. One small task at a time.";
+  if (selectedAtmosphere === "fireplace") {
+    sessionPanel.classList.add(
+      "fireplace-theme"
+    );
+
+    sessionTitle.textContent =
+      "🔥 Fireplace Focus";
+
+    sessionMessage.textContent =
+      "Stay warm. One small task at a time.";
 
     document.body.style.background =
       "linear-gradient(135deg, #7a3f2a, #f4b76b)";
   }
 
-  if (selectedAtmosphere === "rain") {
-    sessionPanel.classList.add("rain-theme");
 
-    sessionTitle.textContent = "🌧️ Rain Window Focus";
-    sessionMessage.textContent = "Let the rain carry distractions away.";
+  if (selectedAtmosphere === "rain") {
+    sessionPanel.classList.add(
+      "rain-theme"
+    );
+
+    sessionTitle.textContent =
+      "🌧️ Rain Window Focus";
+
+    sessionMessage.textContent =
+      "Let the rain carry distractions away.";
 
     document.body.style.background =
       "linear-gradient(135deg, #2f5f73, #8fc7d4)";
   }
 
-  if (selectedAtmosphere === "cafe") {
-    sessionPanel.classList.add("cafe-theme");
 
-    sessionTitle.textContent = "☕ Cafe Focus";
-    sessionMessage.textContent = "Slow work is still progress.";
+  if (selectedAtmosphere === "cafe") {
+    sessionPanel.classList.add(
+      "cafe-theme"
+    );
+
+    sessionTitle.textContent =
+      "☕ Cafe Focus";
+
+    sessionMessage.textContent =
+      "Slow work is still progress.";
 
     document.body.style.background =
       "linear-gradient(135deg, #6b4a35, #d6b08a)";
   }
 
-  if (selectedAtmosphere === "night") {
-    sessionPanel.classList.add("night-theme");
 
-    sessionTitle.textContent = "🌙 Night Study Focus";
-    sessionMessage.textContent = "Quiet night. Deep focus. No rush.";
+  if (selectedAtmosphere === "night") {
+    sessionPanel.classList.add(
+      "night-theme"
+    );
+
+    sessionTitle.textContent =
+      "🌙 Night Study Focus";
+
+    sessionMessage.textContent =
+      "Quiet night. Deep focus. No rush.";
 
     document.body.style.background =
       "linear-gradient(135deg, #252b4a, #7b6fa6)";
   }
 }
 
+
+// ======================================================
+// 24. ATMOSPHERE SOUND
+// ======================================================
+
 function playFocusAtmosphereSound() {
   stopMoodSound();
   stopFocusSound();
 
+
   if (selectedAtmosphere === "fireplace") {
-    focusAudioPlayer.src = "sounds/fireplace.mp3";
+    focusAudioPlayer.src =
+      "sounds/fireplace.mp3";
   }
+
 
   if (selectedAtmosphere === "rain") {
-    focusAudioPlayer.src = "sounds/rain-focus.mp3";
+    focusAudioPlayer.src =
+      "sounds/rain-focus.mp3";
   }
+
 
   if (selectedAtmosphere === "cafe") {
-    focusAudioPlayer.src = "sounds/cafe.mp3";
+    focusAudioPlayer.src =
+      "sounds/cafe.mp3";
   }
+
 
   if (selectedAtmosphere === "night") {
-    focusAudioPlayer.src = "sounds/night.mp3";
+    focusAudioPlayer.src =
+      "sounds/night.mp3";
   }
 
+
   focusAudioPlayer.volume = 0.45;
+
   focusAudioPlayer.play();
 }
 
+
+// ======================================================
+// 25. PROGRESS WORLD
+// ======================================================
+
+function renderProgressWorld() {
+
+  // Plant stages
+  const plantStages = [
+    "🌰",
+    "🌱",
+    "🌿",
+    "🪴",
+    "🌸",
+    "🌳"
+  ];
+
+
+  // Room gradually gets more objects
+  const roomItems = [
+    "",
+    "🕯️",
+    "🕯️ 🪴",
+    "🕯️ 🪴 📚",
+    "🕯️ 🪴 📚 🧸",
+    "🕯️ 🪴 📚 🧸 🛋️",
+    "🕯️ 🪴 📚 🧸 🛋️ 🪟"
+  ];
+
+
+  // Growing Plant selected
+  if (selectedProgress === "plant") {
+
+    // Prevent array from going past final stage
+    const safePlantLevel =
+      Math.min(
+        plantLevel,
+        plantStages.length - 1
+      );
+
+    progressWorldVisual.textContent =
+      plantStages[safePlantLevel];
+
+    progressWorldText.textContent =
+      `Your plant has grown through ${plantLevel} focus session(s). Keep growing gently.`;
+  }
+
+
+  // Cozy Room selected
+  else if (selectedProgress === "room") {
+
+    const safeRoomLevel =
+      Math.min(
+        roomLevel,
+        roomItems.length - 1
+      );
+
+    progressWorldVisual.textContent =
+      roomItems[safeRoomLevel] || "🏡";
+
+    progressWorldText.textContent =
+      `Your cozy room has grown through ${roomLevel} focus session(s). Keep building your soft space.`;
+  }
+
+
+  // Nothing selected yet
+  else {
+    progressWorldVisual.textContent =
+      "🌰";
+
+    progressWorldText.textContent =
+      "Complete focus sessions to grow your plant or build your cozy room.";
+  }
+}
+
+
+// ======================================================
+// 26. START FOCUS SESSION
+// ======================================================
+
 function startFocusSession() {
-  if (selectedProgress === "" || selectedAtmosphere === "") {
+
+  // User must choose BOTH options
+  if (
+    selectedProgress === "" ||
+    selectedAtmosphere === ""
+  ) {
     choiceSummary.textContent =
       "Please choose both a progress style and an atmosphere first.";
 
@@ -422,264 +822,654 @@ function startFocusSession() {
     return;
   }
 
-  focusSetupSections.forEach(function (section) {
-    section.style.display = "none";
-  });
 
-  focusIntroTexts.forEach(function (text) {
-    text.style.display = "none";
-  });
+  // Hide setup sections
+  focusSetupSections.forEach(
+    function (section) {
+      section.style.display = "none";
+    }
+  );
+
+
+  // Hide top intro text
+  focusIntroTexts.forEach(
+    function (text) {
+      text.style.display = "none";
+    }
+  );
+
 
   completionPanel.style.display = "none";
+
   sessionPanel.style.display = "block";
 
+
+  // Apply atmosphere
   applyAtmosphereWorld();
+
+  // Start atmosphere sound
   playFocusAtmosphereSound();
 
-  boboMessage.textContent = "I’ll sit here quietly while you focus.";
 
+  // Bobo encouragement
+  boboMessage.textContent =
+    "I’ll sit here quietly while you focus.";
+
+
+  // Show selected session information
   sessionDetails.textContent =
     `Mode: ${selectedProgress} | Atmosphere: ${selectedAtmosphere} | Time: ${selectedMinutes} min`;
 
+
+  // Reset timer to selected duration
   resetTimer();
+
+  // Start timer
   startTimer();
 }
 
-startFocusButton.addEventListener("click", function () {
-  startFocusSession();
-});
+
+startFocusButton.addEventListener(
+  "click",
+  function () {
+    startFocusSession();
+  }
+);
+
+
+// ======================================================
+// 27. TIMER DISPLAY
+// ======================================================
 
 function updateTimerDisplay() {
-  const minutes = Math.floor(timeLeft / 60);
-  const seconds = timeLeft % 60;
 
-  const formattedMinutes = String(minutes).padStart(2, "0");
-  const formattedSeconds = String(seconds).padStart(2, "0");
+  const minutes =
+    Math.floor(timeLeft / 60);
 
-  timerDisplay.textContent = `${formattedMinutes}:${formattedSeconds}`;
+  const seconds =
+    timeLeft % 60;
+
+
+  const formattedMinutes =
+    String(minutes).padStart(2, "0");
+
+  const formattedSeconds =
+    String(seconds).padStart(2, "0");
+
+
+  timerDisplay.textContent =
+    `${formattedMinutes}:${formattedSeconds}`;
 }
 
+
+// ======================================================
+// 28. START TIMER
+// ======================================================
+
 function startTimer() {
+
+  // Prevent two timers from running
   if (timerRunning) {
     return;
   }
 
+
   timerRunning = true;
-  pauseTimerButton.textContent = "Pause";
 
-  timerInterval = setInterval(function () {
-    timeLeft--;
-    updateTimerDisplay();
+  pauseTimerButton.textContent =
+    "Pause";
 
-    if (timeLeft <= 0) {
-      clearInterval(timerInterval);
-      timerInterval = null;
-      timerRunning = false;
 
-      timerDisplay.textContent = "Done!";
-      sessionDetails.textContent =
-        "Great job! You completed your focus session :)";
+  timerInterval = setInterval(
+    function () {
 
-      boboMessage.textContent =
-        "You did it. I’m proud of you for getting this far.";
+      timeLeft--;
 
-      stopFocusSound();
+      updateTimerDisplay();
 
-      sessionPanel.style.display = "none";
-      completionPanel.style.display = "block";
-    }
-  }, 1000);
+
+      // Timer finished
+      if (timeLeft <= 0) {
+
+        clearInterval(timerInterval);
+
+        timerInterval = null;
+
+        timerRunning = false;
+
+
+        timerDisplay.textContent =
+          "Done!";
+
+
+        sessionDetails.textContent =
+          "Great job! You completed your focus session :)";
+
+
+        boboMessage.textContent =
+          "You did it. I’m proud of you for getting this far.";
+
+
+        // Stop atmosphere sound
+        stopFocusSound();
+
+
+        // Hide timer panel
+        sessionPanel.style.display =
+          "none";
+
+
+        // Show completion panel
+        completionPanel.style.display =
+          "block";
+      }
+
+    },
+    1000
+  );
 }
 
+
+// ======================================================
+// 29. PAUSE TIMER
+// ======================================================
+
 function pauseTimer() {
+
   clearInterval(timerInterval);
+
   timerInterval = null;
+
   timerRunning = false;
-  pauseTimerButton.textContent = "Resume";
+
+
+  pauseTimerButton.textContent =
+    "Resume";
+
 
   boboMessage.textContent =
     "Paused for a moment. That’s okay, we can continue gently.";
 }
 
-function resetTimer(shouldStartAgain = false) {
+
+// Pause / Resume button
+pauseTimerButton.addEventListener(
+  "click",
+  function () {
+
+    if (timerRunning) {
+      pauseTimer();
+    }
+
+    else {
+      boboMessage.textContent =
+        "Welcome back. Let’s continue softly.";
+
+      startTimer();
+    }
+  }
+);
+
+
+// ======================================================
+// 30. RESET TIMER
+// ======================================================
+
+function resetTimer(
+  shouldStartAgain = false
+) {
+
   clearInterval(timerInterval);
+
   timerInterval = null;
+
   timerRunning = false;
 
-  focusDuration = selectedMinutes * 60;
-  timeLeft = focusDuration;
+
+  // Rebuild total time
+  focusDuration =
+    selectedMinutes * 60;
+
+  timeLeft =
+    focusDuration;
+
 
   updateTimerDisplay();
 
-  pauseTimerButton.textContent = "Pause";
 
+  pauseTimerButton.textContent =
+    "Pause";
+
+
+  // Reset button should reset AND continue
   if (shouldStartAgain) {
-    boboMessage.textContent = "Fresh start. I’m still here with you.";
+
+    boboMessage.textContent =
+      "Fresh start. I’m still here with you.";
+
     startTimer();
   }
 }
 
-pauseTimerButton.addEventListener("click", function () {
-  if (timerRunning) {
-    pauseTimer();
-  } else {
-    boboMessage.textContent = "Welcome back. Let’s continue softly.";
-    startTimer();
-  }
-});
 
-resetTimerButton.addEventListener("click", function () {
-  resetTimer(true);
-});
+resetTimerButton.addEventListener(
+  "click",
+  function () {
+    resetTimer(true);
+  }
+);
+
+
+// ======================================================
+// 31. END FOCUS SESSION
+// ======================================================
 
 function endFocusSession() {
+
+  // Stop timer
   clearInterval(timerInterval);
+
   timerInterval = null;
+
   timerRunning = false;
 
+
+  // Stop atmosphere sound
   stopFocusSound();
 
-  sessionPanel.style.display = "none";
-  completionPanel.style.display = "none";
 
-  focusSetupSections.forEach(function (section) {
-    section.style.display = "block";
-  });
+  // Hide session views
+  sessionPanel.style.display =
+    "none";
 
-  focusIntroTexts.forEach(function (text) {
-    text.style.display = "block";
-  });
+  completionPanel.style.display =
+    "none";
 
+
+  // Bring setup back
+  focusSetupSections.forEach(
+    function (section) {
+      section.style.display = "block";
+    }
+  );
+
+
+  focusIntroTexts.forEach(
+    function (text) {
+      text.style.display = "block";
+    }
+  );
+
+
+  // Reset timer
   resetTimer();
+
+
+  // Reset atmosphere colors
   resetFocusWorld();
+
+
+  // Reset Bobo
   resetBoboMessage();
 }
 
-endSessionButton.addEventListener("click", function () {
-  endFocusSession();
-});
 
-function selectFocusTime(minutes, selectedButton) {
+endSessionButton.addEventListener(
+  "click",
+  function () {
+    endFocusSession();
+  }
+);
+
+
+// ======================================================
+// 32. SELECT FOCUS TIME
+// ======================================================
+
+function selectFocusTime(
+  minutes,
+  selectedButton
+) {
+
   selectedMinutes = minutes;
-  focusDuration = selectedMinutes * 60;
-  timeLeft = focusDuration;
 
-  timeButtons.forEach(function (button) {
-    button.classList.remove("selected");
-  });
+  focusDuration =
+    selectedMinutes * 60;
 
+  timeLeft =
+    focusDuration;
+
+
+  // Remove selected style
+  timeButtons.forEach(
+    function (button) {
+      button.classList.remove("selected");
+    }
+  );
+
+
+  // Highlight chosen button
   if (selectedButton) {
-    selectedButton.classList.add("selected");
+    selectedButton.classList.add(
+      "selected"
+    );
   }
 
+
+  // Clear custom input
   customMinutesInput.value = "";
+
 
   updateTimerDisplay();
 }
 
+
+// Time button events
 timeButtons.forEach(function (button) {
-  button.addEventListener("click", function () {
-    const minutes = Number(button.dataset.minutes);
-    selectFocusTime(minutes, button);
-  });
+
+  button.addEventListener(
+    "click",
+    function () {
+
+      const minutes =
+        Number(button.dataset.minutes);
+
+      selectFocusTime(
+        minutes,
+        button
+      );
+    }
+  );
 });
 
-customMinutesInput.addEventListener("input", function () {
-  const customMinutes = Number(customMinutesInput.value);
 
-  if (customMinutes > 0 && customMinutes <= 180) {
-    selectedMinutes = customMinutes;
-    focusDuration = selectedMinutes * 60;
-    timeLeft = focusDuration;
+// ======================================================
+// 33. CUSTOM FOCUS TIME
+// ======================================================
 
-    timeButtons.forEach(function (button) {
-      button.classList.remove("selected");
-    });
+customMinutesInput.addEventListener(
+  "input",
+  function () {
 
-    updateTimerDisplay();
+    const customMinutes =
+      Number(customMinutesInput.value);
+
+
+    if (
+      customMinutes > 0 &&
+      customMinutes <= 180
+    ) {
+
+      selectedMinutes =
+        customMinutes;
+
+      focusDuration =
+        selectedMinutes * 60;
+
+      timeLeft =
+        focusDuration;
+
+
+      // Remove selected preset button
+      timeButtons.forEach(
+        function (button) {
+          button.classList.remove(
+            "selected"
+          );
+        }
+      );
+
+
+      updateTimerDisplay();
+    }
   }
-});
+);
 
-saveAchievementButton.addEventListener("click", function () {
-  const achievementText = achievementInput.value.trim();
 
-  if (achievementText === "") {
-    alert("Please write one small win first.");
+// ======================================================
+// 34. SAVE SMALL WIN
+// ======================================================
+
+saveAchievementButton.addEventListener(
+  "click",
+  function () {
+
+    const achievementText =
+      achievementInput.value.trim();
+
+
+    // Prevent empty win
+    if (achievementText === "") {
+
+      alert(
+        "Please write one small win first."
+      );
+
+      boboMessage.textContent =
+        "Even one tiny sentence is enough. What did you give time to?";
+
+      return;
+    }
+
+
+    // Create Small Win object
+    const newWin = {
+      text: achievementText,
+      minutes: selectedMinutes,
+      date: new Date().toLocaleDateString()
+    };
+
+
+    // Add newest win first
+    savedWins.unshift(newWin);
+
+
+    // Save wins permanently
+    localStorage.setItem(
+      "cozyEscapeWins",
+      JSON.stringify(savedWins)
+    );
+
+
+    renderSavedWins();
+
+
+    // ==================================================
+    // PROGRESS REWARD
+    // ==================================================
+
+    // If user chose Growing Plant
+    if (selectedProgress === "plant") {
+
+      plantLevel++;
+
+      localStorage.setItem(
+        "cozyEscapePlantLevel",
+        plantLevel
+      );
+    }
+
+
+    // If user chose Cozy Room
+    if (selectedProgress === "room") {
+
+      roomLevel++;
+
+      localStorage.setItem(
+        "cozyEscapeRoomLevel",
+        roomLevel
+      );
+    }
+
+
+    // Update visual progress
+    renderProgressWorld();
+
 
     boboMessage.textContent =
-      "Even one tiny sentence is enough. What did you give time to?";
+      "Let’s keep this little win safe.";
 
-    return;
+
+    // Clear text box
+    achievementInput.value = "";
+
+
+    // Hide completion
+    completionPanel.style.display =
+      "none";
+
+
+    // Bring Focus setup back
+    focusSetupSections.forEach(
+      function (section) {
+        section.style.display = "block";
+      }
+    );
+
+
+    focusIntroTexts.forEach(
+      function (text) {
+        text.style.display = "block";
+      }
+    );
+
+
+    resetFocusWorld();
+
+
+    // Go to Small Wins page
+    showPage(winsPage);
   }
+);
 
-  const newWin = {
-    text: achievementText,
-    minutes: selectedMinutes,
-    date: new Date().toLocaleDateString()
-  };
 
-  savedWins.unshift(newWin);
-
-  localStorage.setItem("cozyEscapeWins", JSON.stringify(savedWins));
-
-  renderSavedWins();
-
-  boboMessage.textContent = "Let’s keep this little win safe.";
-
-  achievementInput.value = "";
-
-  completionPanel.style.display = "none";
-
-  focusSetupSections.forEach(function (section) {
-    section.style.display = "block";
-  });
-
-  focusIntroTexts.forEach(function (text) {
-    text.style.display = "block";
-  });
-
-  resetFocusWorld();
-  showPage(winsPage);
-});
+// ======================================================
+// 35. RENDER SAVED SMALL WINS
+// ======================================================
 
 function renderSavedWins() {
+
   winsList.innerHTML = "";
 
+
+  // No wins yet
   if (savedWins.length === 0) {
-    const emptyMessage = document.createElement("li");
-    emptyMessage.classList.add("win-card");
+
+    const emptyMessage =
+      document.createElement("li");
+
+
+    emptyMessage.classList.add(
+      "win-card"
+    );
+
+
     emptyMessage.innerHTML = `
-      <p>No small wins yet. Finish a focus session and save your first one (˶ᵔ ᵕ ᵔ˶)</p>
+      <p>
+        No small wins yet.
+        Finish a focus session and save your first one
+        (˶ᵔ ᵕ ᵔ˶)
+      </p>
     `;
-    winsList.appendChild(emptyMessage);
+
+
+    winsList.appendChild(
+      emptyMessage
+    );
+
     return;
   }
 
-  savedWins.forEach(function (win, index) {
-    const listItem = document.createElement("li");
-    listItem.classList.add("win-card");
 
-    listItem.innerHTML = `
-      <button class="delete-win-btn" data-index="${index}">×</button>
-      <p>❤ ${win.text}</p>
-      <small>⏱️ ${win.minutes} min • 📅 ${win.date}</small>
-    `;
+  // Create one card for every saved win
+  savedWins.forEach(
+    function (win, index) {
 
-    winsList.appendChild(listItem);
-  });
+      const listItem =
+        document.createElement("li");
 
-  const deleteButtons = document.querySelectorAll(".delete-win-btn");
 
-  deleteButtons.forEach(function (button) {
-    button.addEventListener("click", function () {
-      const index = Number(button.dataset.index);
+      listItem.classList.add(
+        "win-card"
+      );
 
-      savedWins.splice(index, 1);
-      localStorage.setItem("cozyEscapeWins", JSON.stringify(savedWins));
 
-      renderSavedWins();
-    });
-  });
+      listItem.innerHTML = `
+        <button
+          class="delete-win-btn"
+          data-index="${index}">
+          ×
+        </button>
+
+        <p>
+          ❤ ${win.text}
+        </p>
+
+        <small>
+          ⏱️ ${win.minutes} min
+          •
+          📅 ${win.date}
+        </small>
+      `;
+
+
+      winsList.appendChild(
+        listItem
+      );
+    }
+  );
+
+
+  // Find delete buttons
+  const deleteButtons =
+    document.querySelectorAll(
+      ".delete-win-btn"
+    );
+
+
+  // Add delete event to each button
+  deleteButtons.forEach(
+    function (button) {
+
+      button.addEventListener(
+        "click",
+        function () {
+
+          const index =
+            Number(
+              button.dataset.index
+            );
+
+
+          // Remove from array
+          savedWins.splice(
+            index,
+            1
+          );
+
+
+          // Save updated array
+          localStorage.setItem(
+            "cozyEscapeWins",
+            JSON.stringify(savedWins)
+          );
+
+
+          // Redraw list
+          renderSavedWins();
+        }
+      );
+    }
+  );
 }
 
+
+// ======================================================
+// 36. INITIAL RENDER
+// ======================================================
+
+// Show saved wins when website loads
 renderSavedWins();
+
+// Show progress world when website loads
+renderProgressWorld();
