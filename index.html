@@ -79,7 +79,7 @@
 
 
       <!-- Progress World -->
-      <div class="progress-world" id="progress-world">
+      <div class="progress-world focus-setup" id="progress-world">
         <p class="progress-world-label">Your little progress world</p>
 
         <div class="progress-world-visual" id="progress-world-visual">
@@ -89,6 +89,10 @@
         <p class="progress-world-text" id="progress-world-text">
           Complete focus sessions to grow your plant or build your cozy room.
         </p>
+
+        <button id="reset-progress-btn" class="clear-focus-btn reset-progress-btn">
+          Start over
+        </button>
       </div>
 
 
@@ -242,28 +246,32 @@
         learned, or gave time to.
       </p>
 
+
+      <!-- Stats Board -->
       <div class="stats-board">
         <div class="stat-card">
           <span id="total-sessions-stat">0</span>
           <p>Total sessions</p>
         </div>
-        
+
         <div class="stat-card">
           <span id="total-minutes-stat">0</span>
           <p>Total focus minutes</p>
         </div>
-        
+
         <div class="stat-card">
           <span id="plant-level-stat">0</span>
           <p>Plant progress</p>
         </div>
-        
+
         <div class="stat-card">
           <span id="room-level-stat">0</span>
           <p>Room progress</p>
         </div>
       </div>
 
+
+      <!-- Saved Small Wins -->
       <div class="wins-board">
         <h2>Saved small wins ✨</h2>
 
