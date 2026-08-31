@@ -152,6 +152,18 @@ const saveAchievementButton =
 const winsList =
   document.getElementById("wins-list");
 
+const totalSessionsStat =
+  document.getElementById("total-sessions-stat");
+
+const totalMinutesStat =
+  document.getElementById("total-minutes-stat");
+
+const plantLevelStat =
+  document.getElementById("plant-level-stat");
+
+const roomLevelStat =
+  document.getElementById("room-level-stat");
+
 
 // ======================================================
 // 11. APP STATE
@@ -1302,22 +1314,21 @@ saveAchievementButton.addEventListener(
     }
 
 
-    // Update visual progress
-    renderProgressWorld();
+// Update visual progress
+renderProgressWorld();
 
+// Update stats board
+renderStats();
 
-    boboMessage.textContent =
-      "Let’s keep this little win safe.";
-
+boboMessage.textContent =
+  "Let’s keep this little win safe.";
 
     // Clear text box
     achievementInput.value = "";
 
-
     // Hide completion
     completionPanel.style.display =
       "none";
-
 
     // Bring Focus setup back
     focusSetupSections.forEach(
@@ -1326,21 +1337,37 @@ saveAchievementButton.addEventListener(
       }
     );
 
-
     focusIntroTexts.forEach(
       function (text) {
         text.style.display = "block";
       }
     );
 
-
     resetFocusWorld();
-
 
     // Go to Small Wins page
     showPage(winsPage);
   }
 );
+
+// ======================================================
+// 35. RENDER STATS
+// ======================================================
+
+function renderStats() {
+  const totalSessions = savedWins.length;
+
+  let totalMinutes = 0;
+
+  savedWins.forEach(function (win) {
+    totalMinutes = totalMinutes + Number(win.minutes);
+  });
+
+  totalSessionsStat.textContent = totalSessions;
+  totalMinutesStat.textContent = totalMinutes;
+  plantLevelStat.textContent = plantLevel;
+  roomLevelStat.textContent = roomLevel;
+}
 
 
 // ======================================================
@@ -1454,9 +1481,10 @@ function renderSavedWins() {
             JSON.stringify(savedWins)
           );
 
-
           // Redraw list
           renderSavedWins();
+          // Update stats after deleting
+          renderStats();
         }
       );
     }
@@ -1473,3 +1501,5 @@ renderSavedWins();
 
 // Show progress world when website loads
 renderProgressWorld();
+
+renderStats();
