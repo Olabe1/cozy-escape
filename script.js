@@ -776,7 +776,7 @@ function renderProgressWorld() {
 
   else {
     progressWorldVisual.textContent =
-      "🌰";
+      "";
 
     progressWorldText.textContent =
       "Complete focus sessions to grow your plant or build your cozy room.";
