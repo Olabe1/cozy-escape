@@ -2,6 +2,542 @@
   box-sizing: border-box;
 }
 
+/* Whole Focus Garden enters softly */
+#focus-page.active-page {
+  animation: focusPageEnter 0.8s ease both;
+}
+
+@keyframes focusPageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Bobo gently floats like he is alive */
+.bobo-img {
+  animation: boboFloat 4s ease-in-out infinite;
+}
+
+@keyframes boboFloat {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Bobo speech bubble breathes softly */
+.bobo-bubble {
+  animation: bubbleBreath 5s ease-in-out infinite;
+}
+
+@keyframes bubbleBreath {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.015);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Progress world has a gentle magical glow */
+.progress-world {
+  animation: progressGlow 5.5s ease-in-out infinite;
+}
+
+@keyframes progressGlow {
+  0% {
+    box-shadow:
+      0 18px 42px rgba(47, 58, 50, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  }
+
+  50% {
+    box-shadow:
+      0 22px 52px rgba(255, 247, 214, 0.20),
+      inset 0 1px 0 rgba(255, 255, 255, 0.58);
+  }
+
+  100% {
+    box-shadow:
+      0 18px 42px rgba(47, 58, 50, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  }
+}
+
+/* The plant / room visual gently moves */
+.progress-world-visual {
+  animation: progressFloat 3.8s ease-in-out infinite;
+}
+
+@keyframes progressFloat {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    transform: translateY(-6px) scale(1.04);
+  }
+
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Sparkles slowly twinkle */
+.progress-world::before,
+.progress-world::after {
+  animation: sparkleTwinkle 2.8s ease-in-out infinite;
+}
+
+.progress-world::after {
+  animation-delay: 1.2s;
+}
+
+@keyframes sparkleTwinkle {
+  0% {
+    opacity: 0.35;
+    transform: scale(0.9) rotate(0deg);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.18) rotate(12deg);
+  }
+
+  100% {
+    opacity: 0.35;
+    transform: scale(0.9) rotate(0deg);
+  }
+}
+
+/* Setup sections appear softly */
+.focus-section,
+.focus-summary {
+  animation: softRise 0.75s ease both;
+}
+
+.focus-section:nth-of-type(1) {
+  animation-delay: 0.08s;
+}
+
+.focus-section:nth-of-type(2) {
+  animation-delay: 0.16s;
+}
+
+.focus-section:nth-of-type(3) {
+  animation-delay: 0.24s;
+}
+
+.focus-summary {
+  animation-delay: 0.32s;
+}
+
+@keyframes softRise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Selected cards feel gently alive */
+.choice-card.selected,
+.atmosphere-card.selected,
+.time-btn.selected {
+  animation: selectedSoftGlow 2.8s ease-in-out infinite;
+}
+
+@keyframes selectedSoftGlow {
+  0% {
+    box-shadow:
+      0 12px 28px rgba(47, 58, 50, 0.16),
+      inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  }
+
+  50% {
+    box-shadow:
+      0 16px 34px rgba(255, 247, 214, 0.24),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  }
+
+  100% {
+    box-shadow:
+      0 12px 28px rgba(47, 58, 50, 0.16),
+      inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  }
+}
+
+/* Start button gets a tiny inviting movement */
+.start-focus-btn {
+  animation: startButtonBreath 3.5s ease-in-out infinite;
+}
+
+@keyframes startButtonBreath {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.025);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Timer appears nicely when session starts */
+.session-panel {
+  animation: sessionAppear 0.65s ease both;
+}
+
+@keyframes sessionAppear {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Completion panel feels rewarding */
+.completion-panel {
+  animation: completionPop 0.65s ease both;
+}
+
+@keyframes completionPop {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Respect users who prefer less motion */
+@media (prefers-reduced-motion: reduce) {
+  #focus-page.active-page,
+  .bobo-img,
+  .bobo-bubble,
+  .progress-world,
+  .progress-world-visual,
+  .progress-world::before,
+  .progress-world::after,
+  .focus-section,
+  .focus-summary,
+  .choice-card.selected,
+  .atmosphere-card.selected,
+  .time-btn.selected,
+  .start-focus-btn,
+  .session-panel,
+  .completion-panel {
+    animation: none;
+  }
+}
+
+/* Make the Focus Garden feel softer and less like one big box */
+#focus-page {
+  padding: 54px 42px 58px;
+
+  background:
+    radial-gradient(circle at top left, rgba(255, 247, 214, 0.34), transparent 34%),
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.22), transparent 32%),
+    rgba(255, 255, 255, 0.13);
+
+  border: 1px solid rgba(255, 247, 214, 0.35);
+  border-radius: 38px;
+
+  box-shadow: 0 24px 60px rgba(31, 42, 39, 0.22);
+}
+
+/* Tighten the top intro so it does not take too much vertical space */
+#focus-page .eyebrow {
+  margin-bottom: 8px;
+}
+
+#focus-page .page-title {
+  margin-bottom: 16px;
+}
+
+#focus-page .page-description {
+  max-width: 600px;
+  margin-bottom: 26px;
+  font-size: 1.12rem;
+  line-height: 1.65;
+}
+
+/* Bobo becomes a soft companion, not another heavy card */
+.bobo-companion {
+  max-width: 610px;
+  margin: 0 auto 24px;
+  padding: 0;
+
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.bobo-img {
+  width: 92px;
+  filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.16));
+}
+
+.bobo-bubble {
+  padding: 14px 18px;
+  border-radius: 24px 24px 24px 10px;
+
+  background: rgba(255, 255, 255, 0.68);
+  border: 1px solid rgba(255, 247, 214, 0.85);
+
+  box-shadow: 0 10px 24px rgba(47, 58, 50, 0.10);
+}
+
+.bobo-bubble::before {
+  display: none;
+}
+
+#bobo-message {
+  font-size: 0.96rem;
+  font-weight: 700;
+}
+
+/* Make progress world feel like the main magical object */
+.progress-world {
+  position: relative;
+  overflow: hidden;
+
+  max-width: 620px;
+  margin: 0 auto 30px;
+  padding: 28px 26px 24px;
+
+  border-radius: 42px 28px 42px 28px;
+
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255, 247, 214, 0.72), transparent 34%),
+    radial-gradient(circle at 85% 15%, rgba(255, 255, 255, 0.46), transparent 28%),
+    linear-gradient(145deg, rgba(244, 216, 168, 0.72), rgba(255, 255, 255, 0.30));
+
+  border: 1px solid rgba(255, 247, 214, 0.75);
+
+  box-shadow:
+    0 18px 42px rgba(47, 58, 50, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+.progress-world::before {
+  content: "✦";
+  position: absolute;
+  top: 18px;
+  left: 22px;
+
+  color: rgba(255, 247, 214, 0.95);
+  font-size: 1.1rem;
+}
+
+.progress-world::after {
+  content: "✦";
+  position: absolute;
+  right: 26px;
+  bottom: 22px;
+
+  color: rgba(255, 247, 214, 0.75);
+  font-size: 0.9rem;
+}
+
+.progress-world-label {
+  margin-bottom: 10px;
+
+  color: #fff7d6;
+  font-size: 0.72rem;
+  letter-spacing: 3.5px;
+}
+
+.progress-world-visual {
+  margin: 10px 0 14px;
+
+  font-size: clamp(3rem, 7vw, 4.8rem);
+  line-height: 1.15;
+  letter-spacing: 6px;
+}
+
+.progress-world-text {
+  max-width: 500px;
+
+  color: #26312c;
+  font-size: 1.02rem;
+  line-height: 1.55;
+}
+
+/* Start over should feel secondary, not like a big main action */
+.reset-progress-btn {
+  margin-top: 18px;
+  padding: 10px 16px;
+
+  font-size: 0.88rem;
+  opacity: 0.9;
+}
+
+/* Reduce spacing between setup groups */
+.focus-section {
+  margin-top: 24px;
+}
+
+.focus-section h2 {
+  margin-bottom: 14px;
+
+  font-size: 1.05rem;
+  letter-spacing: 0.5px;
+}
+
+/* Make the progress choice cards less heavy */
+.progress-grid {
+  max-width: 620px;
+  margin: 0 auto 24px;
+  gap: 16px;
+}
+
+.choice-card {
+  padding: 20px 18px;
+  border-radius: 30px;
+
+  background: rgba(255, 247, 214, 0.34);
+  border: 1px solid rgba(255, 247, 214, 0.55);
+
+  box-shadow: 0 10px 24px rgba(47, 58, 50, 0.10);
+}
+
+.choice-card span {
+  font-size: 2.1rem;
+}
+
+.choice-card strong {
+  font-size: 1.05rem;
+}
+
+.choice-card p {
+  font-size: 0.92rem;
+  opacity: 0.9;
+}
+
+/* Atmosphere buttons become lighter chips */
+.atmosphere-row {
+  margin-bottom: 22px;
+  gap: 10px;
+}
+
+.atmosphere-card,
+.time-btn {
+  padding: 12px 18px;
+
+  background: rgba(255, 255, 255, 0.34);
+  border: 1px solid rgba(255, 247, 214, 0.55);
+
+  box-shadow: none;
+}
+
+/* Selected state should be clear but not too heavy */
+.choice-card.selected,
+.atmosphere-card.selected,
+.time-btn.selected {
+  background: rgba(255, 247, 214, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+
+  box-shadow:
+    0 12px 28px rgba(47, 58, 50, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
+}
+
+/* Custom time input softer */
+.custom-time {
+  margin-top: 4px;
+}
+
+.custom-time input {
+  background: rgba(255, 255, 255, 0.38);
+  border: 1px solid rgba(255, 247, 214, 0.65);
+}
+
+/* Focus summary becomes an action strip, not another big box */
+.focus-summary {
+  max-width: 620px;
+  margin-top: 26px;
+  padding: 16px 18px;
+
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 247, 214, 0.30);
+
+  box-shadow: none;
+}
+
+#choice-summary {
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+}
+
+.start-focus-btn {
+  background: rgba(244, 216, 168, 0.95);
+  border: 1px solid rgba(255, 247, 214, 0.9);
+}
+
+.clear-focus-btn {
+  border: 1px solid rgba(255, 255, 255, 0.48);
+}
+
+/* Mobile cleanup */
+@media (max-width: 700px) {
+  #focus-page {
+    padding: 42px 24px 46px;
+  }
+
+  .bobo-companion {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .bobo-bubble {
+    text-align: center;
+    border-radius: 24px;
+  }
+
+  .progress-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .focus-summary {
+    border-radius: 28px;
+  }
+} 
+
 body {
   margin: 0;
   min-height: 100vh;
